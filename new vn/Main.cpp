@@ -11,7 +11,13 @@ int main()
 
 	std::vector<std::string> menuStrings = { "Новая игра", "Загрузить игру", "Настройки", "Выход" };
 
-	Menu menu(4, Vector2f(1600, 400.f), Vector2f(200.f, 140), menuStrings, "right");
+	Menu menu(
+		4,
+		Vector2f(1600, 400.f),
+		Vector2f(200.f, 140),
+		menuStrings,
+		"right"
+	);
 
 	while (window.isOpen())
 	{

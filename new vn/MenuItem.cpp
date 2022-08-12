@@ -17,7 +17,7 @@ MenuItem::MenuItem(std::string string, Vector2f size)
 	m_shape = RectangleShape(size);
 }
 
-MenuItem::MenuItem(std::string string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, std::string alignment)
+MenuItem::MenuItem(std::string string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, int fontSize, std::string alignment)
 {
 	m_string = string;
 	m_localStartPoint = localStartPoint;

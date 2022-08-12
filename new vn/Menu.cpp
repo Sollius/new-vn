@@ -18,7 +18,7 @@ Menu::Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<std::
 
 	for (int count = 0; count < itemsCount; count++)
 	{
-		m_items.push_back(MenuItem(strings[count], Vector2f(0.f, ((size.y / itemsCount) * count)), startPoint, Vector2f(size.x, (size.y / itemsCount)), m_font, m_alignment));
+		m_items.push_back(MenuItem(strings[count], Vector2f(0.f, ((size.y / itemsCount) * count)), startPoint, Vector2f(size.x, (size.y / itemsCount)), m_font, m_fontSize, m_alignment));
 	}
 
 	m_mainShape.setFillColor(Color(255, 255, 255, 50));

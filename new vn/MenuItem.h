@@ -20,7 +20,7 @@ public:
 
 	MenuItem(std::string string, Vector2f size);
 
-	MenuItem(std::string string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, std::string alignment);
+	MenuItem(std::string string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, int fontSize, std::string alignment);
 
 	RectangleShape getShape();
 
