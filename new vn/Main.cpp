@@ -1,5 +1,5 @@
-#include "SFML/Window.hpp"
-#include "SFML/Graphics.hpp"
+#include "MainHeader.h"
+#include "Menu.h"
 
 using namespace sf;
 
@@ -8,6 +8,10 @@ int main()
 	setlocale(LC_ALL, "Rus");
 
 	RenderWindow window(VideoMode(1920, 1080), "SFML App");
+
+	std::vector<std::string> menuStrings = { "Новая игра", "Загрузить игру", "Настройки", "Выход" };
+
+	Menu menu(4, Vector2f(1600, 400.f), Vector2f(200.f, 140), menuStrings, "right");
 
 	while (window.isOpen())
 	{
@@ -31,8 +35,14 @@ int main()
 
 		window.clear(Color::Blue);
 
-		window.display();
+		window.draw(menu.getMainShape());
+		for (auto menuItem : menu.getItems())
+		{
+			window.draw(menuItem.getShape());
+			window.draw(menuItem.getText());
+		}
 
+		window.display();
 	}
 
 	return 0;
