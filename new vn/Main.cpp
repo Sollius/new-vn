@@ -5,11 +5,11 @@ using namespace sf;
 
 int main()
 {
-	setlocale(LC_ALL, "Rus");
+	setlocale(LC_ALL, "Russian");
 
 	RenderWindow window(VideoMode(1920, 1080), "SFML App");
 
-	std::vector<std::string> menuStrings = { "Новая игра", "Загрузить игру", "Настройки", "Выход" };
+	std::vector<sf::String> menuStrings = { "New game", "Load game", "Settings", "Exit" };
 
 	Menu menu(
 		4,

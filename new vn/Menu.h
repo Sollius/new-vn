@@ -17,7 +17,7 @@ private:
 public:
 	Menu();
 
-	Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<std::string> strings, std::string alignment);
+	Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, std::string alignment);
 
 	std::vector<MenuItem>& getItems();
 

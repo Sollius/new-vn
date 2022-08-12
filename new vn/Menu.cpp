@@ -3,7 +3,7 @@
 
 Menu::Menu() {}
 
-Menu::Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<std::string> strings, std::string alignment)
+Menu::Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, std::string alignment)
 {
 	m_itemsCount = itemsCount;
 	m_startPoint = startPoint;

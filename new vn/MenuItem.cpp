@@ -5,19 +5,19 @@ using namespace sf;
 
 MenuItem::MenuItem() {};
 
-MenuItem::MenuItem(std::string string, RectangleShape shape)
+MenuItem::MenuItem(sf::String string, RectangleShape shape)
 {
 	m_string = string;
 	m_shape = shape;
 }
 
-MenuItem::MenuItem(std::string string, Vector2f size)
+MenuItem::MenuItem(sf::String string, Vector2f size)
 {
 	m_string = string;
 	m_shape = RectangleShape(size);
 }
 
-MenuItem::MenuItem(std::string string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, int fontSize, std::string alignment)
+MenuItem::MenuItem(sf::String string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, int fontSize, std::string alignment)
 {
 	m_string = string;
 	m_localStartPoint = localStartPoint;

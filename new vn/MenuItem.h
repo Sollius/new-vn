@@ -7,7 +7,7 @@ using namespace sf;
 class MenuItem
 {
 private:
-	std::string m_string = sf::String("");
+	sf::String m_string = sf::String("");
 	Vector2f m_localStartPoint = Vector2f(0.f, 0.f);
 	Vector2f m_globalStartPoint = Vector2f(0.f, 0.f);
 	RectangleShape m_shape = RectangleShape(Vector2f(0.f, 0.f));
@@ -16,11 +16,11 @@ private:
 public:
 	MenuItem();
 
-	MenuItem(std::string string, RectangleShape shape);
+	MenuItem(sf::String string, RectangleShape shape);
 
-	MenuItem(std::string string, Vector2f size);
+	MenuItem(sf::String string, Vector2f size);
 
-	MenuItem(std::string string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, int fontSize, std::string alignment);
+	MenuItem(sf::String string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, int fontSize, std::string alignment);
 
 	RectangleShape getShape();
 
