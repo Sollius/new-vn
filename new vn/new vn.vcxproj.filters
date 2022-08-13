@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\fonts">
       <UniqueIdentifier>{36a18712-fc4b-4832-8077-2945c4886ffd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\img">
+      <UniqueIdentifier>{44371d99-b5cf-4a1f-b53d-a768678dc888}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -43,5 +46,10 @@
     <Font Include="calibri.ttf">
       <Filter>Resource Files\fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="menu_bg.jpg">
+      <Filter>Resource Files\img</Filter>
+    </Image>
   </ItemGroup>
 </Project>

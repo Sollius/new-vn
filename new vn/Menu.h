@@ -13,14 +13,18 @@ private:
 	Font					m_font			= Font();
 	int						m_fontSize		= 20;
 	std::string				m_alignment		= "left";
+	Texture					m_texture		= Texture();
+	Sprite					m_sprite		= Sprite();
 
 public:
 	Menu();
 
-	Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, std::string alignment);
+	Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, std::string alignment, std::string bgImageName);
 
 	std::vector<MenuItem>& getItems();
 
 	RectangleShape getMainShape();
+
+	Sprite getSprite();
 };
 

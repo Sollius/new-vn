@@ -3,13 +3,15 @@
 
 Menu::Menu() {}
 
-Menu::Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, std::string alignment)
+Menu::Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, std::string alignment, std::string bgImageName)
 {
 	m_itemsCount = itemsCount;
 	m_startPoint = startPoint;
 	m_size = size;
 	m_mainShape = RectangleShape(size);
 	m_alignment = alignment;
+	m_texture.loadFromFile(bgImageName);
+	m_sprite.setTexture(m_texture);
 	
 	if (!m_font.loadFromFile("calibri.ttf"))
 	{
@@ -35,4 +37,9 @@ std::vector<MenuItem>& Menu::getItems()
 RectangleShape Menu::getMainShape()
 {
 	return m_mainShape;
+}
+
+Sprite Menu::getSprite()
+{
+	return m_sprite;
 }

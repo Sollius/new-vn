@@ -53,7 +53,8 @@ MenuItem::MenuItem(sf::String string, Vector2f localStartPoint, Vector2f globalM
 					m_localStartPoint.y + ((m_shape.getGlobalBounds().height - m_text.getGlobalBounds().height) / 2)),
 					globalMenuPosition));
 			}
-	m_text.setFillColor(Color::Red);
+	m_text.setFillColor(Color::White);
+	m_text.setOutlineThickness(2.f);
 	m_text.setOutlineColor(Color::Black);
 }
 

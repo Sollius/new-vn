@@ -16,7 +16,8 @@ int main()
 		Vector2f(1600, 400.f),
 		Vector2f(200.f, 140),
 		menuStrings,
-		"right"
+		"right",
+		"menu_bg.jpg"
 	);
 
 	while (window.isOpen())
@@ -41,6 +42,7 @@ int main()
 
 		window.clear(Color::Blue);
 
+		window.draw(menu.getSprite());
 		window.draw(menu.getMainShape());
 		for (auto menuItem : menu.getItems())
 		{
