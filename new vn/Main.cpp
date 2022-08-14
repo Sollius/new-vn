@@ -13,8 +13,8 @@ int main()
 
 	Menu menu(
 		4,
-		Vector2f(1600, 400.f),
-		Vector2f(200.f, 140),
+		Vector2f(100.f, 100.f),
+		Vector2f(120.f, 200),
 		menuStrings,
 		"right",
 		"menu_bg.jpg"
@@ -38,13 +38,33 @@ int main()
 					window.close();
 				}
 			}
+
+			if (event.type == Event::MouseMoved)
+			{
+			int count = 0;
+				for (auto& menuItem : menu.getItems())
+				{
+					count++;
+					menuItem.getShape().getGlobalBounds().left;
+
+					if (menuItem.getShape().getGlobalBounds().contains(Mouse::getPosition().x, Mouse::getPosition().y))
+					{
+						menuItem.getShape().setFillColor(Color(255, 100, 100, 200));
+					}
+					else
+					{
+						std::cout << "shape " << count << " DONT countains" << std::endl;
+						menuItem.getShape().setFillColor(Color(255, 0, 0, 50));
+					}
+				}
+			}
 		}
 
 		window.clear(Color::Blue);
 
 		window.draw(menu.getSprite());
 		window.draw(menu.getMainShape());
-		for (auto menuItem : menu.getItems())
+		for (auto& menuItem : menu.getItems())
 		{
 			window.draw(menuItem.getShape());
 			window.draw(menuItem.getText());

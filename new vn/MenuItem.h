@@ -22,7 +22,7 @@ public:
 
 	MenuItem(sf::String string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, int fontSize, std::string alignment);
 
-	RectangleShape getShape();
+	RectangleShape &getShape();
 
 	Text getText();
 
