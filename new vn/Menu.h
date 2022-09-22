@@ -19,7 +19,7 @@ private:
 public:
 	Menu();
 
-	Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, std::string alignment, std::string bgImageName);
+	Menu(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, Color textFillColor, std::string alignment, std::string bgImageName);
 
 	std::vector<MenuItem>& getItems();
 
