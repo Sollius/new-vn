@@ -19,26 +19,38 @@
     <Filter Include="Resource Files\img">
       <UniqueIdentifier>{44371d99-b5cf-4a1f-b53d-a768678dc888}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Enums">
+      <UniqueIdentifier>{fb07ee32-5c55-4e94-8f67-81a59a89fb37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
+    <ClCompile Include="MenuBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DebugConsole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuStringFunction.cpp">
+      <Filter>Source Files\Enums</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Menu.h">
+    <ClInclude Include="MenuBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MenuItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MainHeader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

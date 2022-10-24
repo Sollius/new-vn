@@ -1,19 +1,22 @@
 #pragma once
 
 #include "MainHeader.h"
+#include "MenuStringFunction.cpp"
 
 using namespace sf;
 
 class MenuItem
 {
 private:
-	int m_id = 0;
-	sf::String m_string = sf::String("");
-	Vector2f m_localStartPoint = Vector2f(0.f, 0.f);
-	Vector2f m_globalStartPoint = Vector2f(0.f, 0.f);
-	RectangleShape m_shape = RectangleShape(Vector2f(0.f, 0.f));
-	Text m_text = Text();
-	Color m_textFillColor = Color();
+	int					m_id				= 0;
+	sf::String			m_string			= sf::String("");
+	Vector2f			m_localStartPoint	= Vector2f(0.f, 0.f);
+	Vector2f			m_globalStartPoint	= Vector2f(0.f, 0.f);
+	RectangleShape		m_shape				= RectangleShape(Vector2f(0.f, 0.f));
+	Text				m_text				= Text();
+	Color				m_textFillColor		= Color();
+	MenuStringFunction	m_function			= MenuStringFunction::NONE;
+	bool				m_isPicked			= false;
 
 public:
 	MenuItem();
@@ -37,5 +40,14 @@ public:
 	sf::Color getTextFillColor();
 
 	sf::String getTextFillColorString();
-};
 
+	void setTextFillColor(int colorR, int colorG, int colorB);
+
+	void setTextFillColor(int colorR, int colorG, int colorB, int colorA);
+
+	void setTextFillColor(Color color);
+
+	void pickSwitch();
+
+	bool isPicked();
+};

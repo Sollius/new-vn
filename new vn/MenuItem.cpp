@@ -30,10 +30,10 @@ MenuItem::MenuItem(int id, sf::String string, Vector2f localStartPoint, Vector2f
 	m_shape.setOutlineColor(Color::Green);
 	m_shape.setPosition(localToGlobalPoint(localStartPoint, globalMenuPosition));
 
+	m_text = Text(string, font, 30);
 	m_text.setFillColor(m_textFillColor);
 	m_text.setOutlineThickness(1.f);
 	m_text.setOutlineColor(Color::Black);
-	m_text = Text(string, font, 30);
 	if (alignment == "center")
 	{
 		m_text.setPosition(localToGlobalPoint(
@@ -98,4 +98,36 @@ sf::String MenuItem::getTextFillColorString()
 		std::to_string(m_textFillColor.r) + ", " +
 		std::to_string(m_textFillColor.g) + ", " +
 		std::to_string(m_textFillColor.b));
+}
+
+
+
+void MenuItem::setTextFillColor(int colorR, int colorG, int colorB)
+{
+	Color newColor(colorR, colorG, colorB);
+	m_textFillColor = newColor;
+	m_text.setFillColor(m_textFillColor);
+}
+
+void MenuItem::setTextFillColor(int colorR, int colorG, int colorB, int colorA)
+{
+	Color newColor(colorR, colorG, colorB, colorA);
+	m_textFillColor = newColor;
+	m_text.setFillColor(m_textFillColor);
+}
+
+void MenuItem::setTextFillColor(Color color)
+{
+	m_textFillColor = color;
+	m_text.setFillColor(m_textFillColor);
+}
+
+void MenuItem::pickSwitch()
+{
+	m_isPicked = !m_isPicked;
+}
+
+bool MenuItem::isPicked()
+{
+	return m_isPicked;
 }

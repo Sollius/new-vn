@@ -1,5 +1,5 @@
 #include "MainHeader.h"
-#include "Menu.h"
+#include "MenuBlock.h"
 #include <math.h>
 #include <cmath>
 
@@ -7,167 +7,129 @@ using namespace sf;
 
 int main()
 {
-	bool debug = true, viewConsole = false;
-
 	setlocale(LC_ALL, "Russian");
 
-	RenderWindow window(VideoMode(1920, 1080), "SFML App");
+	bool debug = false;
 
-	std::vector<sf::String> menuStrings = { "New game", "Load game", "Settings", "Exit" };
+	Font defaultFont;
+	defaultFont.loadFromFile("calibri.ttf");
 
-	Menu menu(
+	Uint32 windowStyle;
+	Vector2i windowSize;
+
+	if (debug)
+	{
+		windowSize = Vector2i(1920, 1080);
+		windowStyle = Style::Default;
+	}
+	else
+	{
+		windowSize = Vector2i(1920, 1080);
+		windowStyle = Style::Fullscreen;
+	}
+
+	RenderWindow window(VideoMode(windowSize.x, windowSize.y), "SFML App", windowStyle);
+
+	MenuBlock menu(
 		4,
 		Vector2f(100.f, 100.f),
 		Vector2f(150.f, 250.f),
-		menuStrings,
-		Color::White,
+		{ String(L"New game"), String("Load game"), String("Settings"), String("Exit") },
+		Color(255, 255, 255, 200),
 		"left",
 		"menu_bg.jpg"
 	);
 
-	std::vector<Text> texts;
-
-	RectangleShape debugConsole = RectangleShape(Vector2f(200, 400.f));
-	debugConsole.setFillColor(Color(0, 0, 0, 150));
-	debugConsole.setPosition(1700, 100);
-
-	Font font;
-	font.loadFromFile("calibri.ttf");
-	
-	String mouseCoordsString, selectedItemString, menuItemColorString = menu.getItems().at(0).getTextFillColorString();
-		std::to_string(menu.getItems().at(0).getText().getFillColor().r) + ", " +
-		std::to_string(menu.getItems().at(0).getText().getFillColor().g) + ", " +
-		std::to_string(menu.getItems().at(0).getText().getFillColor().b);
-	Text mouseCoordsText = Text(mouseCoordsString, font, 20), menuItemColorText = Text(menuItemColorString, font, 20);
-	Text selectedItemTexts[] = { Text(selectedItemString, font, 20), Text(selectedItemString, font, 20), Text(selectedItemString, font, 20), Text(selectedItemString, font, 20) };
-
-	mouseCoordsText.setPosition(Vector2f(1705, 105));
-	menuItemColorText.setPosition(Vector2f(1705, 125));
-	for (int count = 0; count < menu.getItems().size(); count++)
-	{
-		selectedItemTexts[count].setPosition(Vector2f(1705, 145 + (count * 20)));
-	}
-
-	texts.push_back(mouseCoordsText);
-	texts.push_back(menuItemColorText);
-	for (auto& sit : selectedItemTexts)
-	{
-		texts.push_back(sit);
-	}
+	DebugConsole console
+	(
+		RectangleShape(Vector2f(400.f, 400.f)),
+		Vector2f(1500, 100),
+		Color(0, 0, 0, 150),
+		std::vector<Text>
+			{
+				Text(String(""), defaultFont, 20),
+				Text(String(""), defaultFont, 20),
+				Text(String(""), defaultFont, 20),
+				Text(String(""), defaultFont, 20),
+				Text(String(""), defaultFont, 20),
+				Text(String(""), defaultFont, 20),
+			}
+	);
 
 	while (window.isOpen())
 	{
 		Event event;
-		
-		if (viewConsole)
-		{
-			/*
-			std::cout << "mouse - " << Mouse::getPosition().x << "." << Mouse::getPosition().y << std::endl;
-			for (auto& menuItem : menu.getItems())
-			{
-				std::cout <<
-					menuItem.getId() << "g -" <<
-					" h " << menuItem.getShape().getGlobalBounds().height <<
-					" w " << menuItem.getShape().getGlobalBounds().width <<
-					" t " << menuItem.getShape().getGlobalBounds().top <<
-					" l " << menuItem.getShape().getGlobalBounds().left << std::endl <<
-					menuItem.getId() << "l -" <<
-					" h " << menuItem.getShape().getLocalBounds().height <<
-					" w " << menuItem.getShape().getLocalBounds().width <<
-					" t " << menuItem.getShape().getLocalBounds().top <<
-					" l " << menuItem.getShape().getLocalBounds().left << std::endl;
-
-			}
-			*/
-			
-			mouseCoordsString = "mouse - " + std::to_string(Mouse::getPosition().x) + "," + std::to_string(Mouse::getPosition().y);
-			mouseCoordsText.setString(mouseCoordsString);
-		}
 
 		while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
+			switch (event.type)
 			{
+			case Event::Closed:
 				window.close();
-			}
-
-			if (event.type == Event::KeyPressed)
-			{
-				if (event.key.code == Keyboard::Escape)
+				break;
+			case Event::KeyPressed:
+				switch (event.key.code)
 				{
+				case Keyboard::Escape:
 					window.close();
+					break;
+				case Keyboard::Enter:
+					break;
+				case Keyboard::Tilde:
+					console.switchShowingConsole();
+					break;
 				}
+			case Event::MouseMoved:
+				menu.setItemsBoldIfHovered(window);
 
-				if (event.key.code == Keyboard::Enter)
-				{
-					RenderWindow window(VideoMode(1024, 768), "SFML APP");
-				}
-
-				if (event.key.code == Keyboard::Tilde)
-				{
-					viewConsole = !viewConsole;
-				}
-
-				if (event.key.code == Keyboard::Hyphen)
-				{
-					for (auto& menuItem : menu.getItems())
-					{
-						menuItem.getTextForChanging().setFillColor(Color(
-							menuItem.getText().getFillColor().r - 2,
-							menuItem.getText().getFillColor().g - 2,
-							menuItem.getText().getFillColor().b - 2));
-					};
-
-					menuItemColorString = menu.getItems().at(0).getTextFillColorString();
-					texts[1].setString(menuItemColorString);
-				}
-
-				if (event.key.code == Keyboard::Add)
-				{
-					for (auto& menuItem : menu.getItems())
-					{
-						menuItem.getTextForChanging().setFillColor(Color(
-							menuItem.getText().getFillColor().r + 2,
-							menuItem.getText().getFillColor().g + 2,
-							menuItem.getText().getFillColor().b + 2));
-					}
-
-					menuItemColorString = menu.getItems().at(0).getTextFillColorString();
-					texts[1].setString(menuItemColorString);
-				}
-			}
-
-			if (event.type == Event::MouseMoved)
-			{
 				for (auto& menuItem : menu.getItems())
 				{
-					if (menuItem.getText().getGlobalBounds().contains(Mouse::getPosition().x, Mouse::getPosition().y))
+					menuItem.getShape().setFillColor(Color(255, 100, 100, 200));
+
+					if (console.showingConsole())
 					{
-						menuItem.getShape().setFillColor(Color(255, 100, 100, 200));
-						if (viewConsole)
-						{
-							selectedItemString =
-								"w" + std::to_string(lroundf(menuItem.getShape().getLocalBounds().width)) +
-								" h" + std::to_string(lroundf(menuItem.getShape().getLocalBounds().height)) +
-								" l" + std::to_string(lroundf(menuItem.getShape().getLocalBounds().left)) +
-								" t" + std::to_string(lroundf(menuItem.getShape().getLocalBounds().top));
-
-							texts[menuItem.getId() + 2].setString(selectedItemString);
-						}
-					}
-					else
-					{
-						if (viewConsole)
-						{
-							selectedItemString.clear();
-
-							texts[menuItem.getId() + 2].setString(selectedItemString);
-
-						}
-						menuItem.getShape().setFillColor(Color(255, 0, 0, 50));
+						console.getTextsForChanging().at(2 + menuItem.getId()).setString(
+							"g - " + std::to_string(lroundf(menuItem.getText().getGlobalBounds().width)) +
+							" " + std::to_string(lroundf(menuItem.getText().getGlobalBounds().height)) +
+							" " + std::to_string(lroundf(menuItem.getText().getGlobalBounds().left)) +
+							" " + std::to_string(lroundf(menuItem.getText().getGlobalBounds().top)) +
+							"; l - " + std::to_string(lroundf(menuItem.getText().getLocalBounds().width)) +
+							" " + std::to_string(lroundf(menuItem.getText().getLocalBounds().height)) +
+							" " + std::to_string(lroundf(menuItem.getText().getLocalBounds().left)) +
+							" " + std::to_string(lroundf(menuItem.getText().getLocalBounds().top)));
 					}
 				}
 
+				break;
+			}
+
+			for (auto& item : menu.getItems())
+			{
+				if (item.getText().getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
+				{
+					if (event.type == Event::MouseButtonPressed)
+					{
+						menu.setItemPicked(item);
+
+						if (event.type == Event::MouseMoved)
+						{
+							if (!item.getText().getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
+							{
+								menu.setItemUnpicked(item);
+							}
+						}
+					}
+
+					if (event.type == Event::MouseButtonReleased)
+					{
+						menu.setItemUnpicked(item);
+					}
+				}
+
+				if (item.isPicked() && event.type == Event::MouseButtonReleased)
+				{
+					menu.setItemUnpicked(item);
+				}
 			}
 		}
 
@@ -185,16 +147,24 @@ int main()
 			window.draw(menuItem.getText());
 		}
 
-		if (viewConsole)
+		if (console.showingConsole())
 		{
-			window.draw(debugConsole);
+			console.getTextsForChanging().at(size_t(0))
+				.setString("mouseGlobal - " +
+					std::to_string(Mouse::getPosition().x) + "," +
+					std::to_string(Mouse::getPosition().y));
 
-			for (auto& text : texts)
+			console.getTextsForChanging().at(size_t(1))
+				.setString("mouseLocal - " +
+					std::to_string(Mouse::getPosition(window).x) + "," +
+					std::to_string(Mouse::getPosition(window).y));
+
+
+			window.draw(console.getBgShape());
+			for (auto& text : console.getTexts())
 			{
 				window.draw(text);
 			}
-
-			window.draw(mouseCoordsText);
 		}
 
 		window.display();
