@@ -27,6 +27,8 @@ public:
 
 	MenuItem(int id, sf::String string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, int fontSize, Color textFillColor, std::string alignment);
 
+	MenuItem(int id, sf::String string, int itemFunction, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font& font, int fontSize, Color textFillColor, std::string alignment);
+
 	RectangleShape &getShape();
 
 	Text getText();
@@ -34,6 +36,8 @@ public:
 	Text& getTextForChanging();
 
 	int getId();
+
+	MenuStringFunction getItemFunction();
 
 	Vector2f localToGlobalPoint(Vector2f localPoint, Vector2f globalPosition);
 

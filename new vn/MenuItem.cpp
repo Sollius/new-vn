@@ -17,13 +17,80 @@ MenuItem::MenuItem(sf::String string, Vector2f size)
 	m_shape = RectangleShape(size);
 }
 
-MenuItem::MenuItem(int id, sf::String string, Vector2f localStartPoint, Vector2f globalMenuPosition, Vector2f size, Font &font, int fontSize, Color textFillColor, std::string alignment)
+MenuItem::MenuItem(
+	int id,
+	sf::String string,
+	Vector2f localStartPoint,
+	Vector2f globalMenuPosition,
+	Vector2f size,
+	Font &font,
+	int fontSize,
+	Color textFillColor,
+	std::string alignment
+)
 {
 	m_id = id;
 	m_string = string;
 	m_localStartPoint = localStartPoint;
 	m_textFillColor = textFillColor;
 	
+	m_shape = RectangleShape(size);
+	m_shape.setFillColor(Color(255, 0, 0, 50));
+	m_shape.setOutlineThickness(2.f);
+	m_shape.setOutlineColor(Color::Green);
+	m_shape.setPosition(localToGlobalPoint(localStartPoint, globalMenuPosition));
+
+	m_text = Text(string, font, 30);
+	m_text.setFillColor(m_textFillColor);
+	m_text.setOutlineThickness(1.f);
+	m_text.setOutlineColor(Color::Black);
+	if (alignment == "center")
+	{
+		m_text.setPosition(localToGlobalPoint(
+			Vector2f(
+				m_localStartPoint.x + ((m_shape.getGlobalBounds().width - m_text.getGlobalBounds().width) / 2),
+				m_localStartPoint.y + ((m_shape.getGlobalBounds().height - m_text.getGlobalBounds().height) / 2)),
+			globalMenuPosition));
+	}
+	else
+		if (alignment == "left")
+		{
+			m_text.setPosition(localToGlobalPoint(
+				Vector2f(
+					m_localStartPoint.x,
+					m_localStartPoint.y + ((m_shape.getGlobalBounds().height - m_text.getGlobalBounds().height) / 2)),
+				globalMenuPosition));
+		}
+		else
+			if (alignment == "right")
+			{
+				m_text.setPosition(localToGlobalPoint(
+					Vector2f(
+						m_localStartPoint.x + m_shape.getGlobalBounds().width - m_text.getGlobalBounds().width,
+						m_localStartPoint.y + ((m_shape.getGlobalBounds().height - m_text.getGlobalBounds().height) / 2)),
+					globalMenuPosition));
+			}
+}
+
+MenuItem::MenuItem(
+	int id,
+	sf::String string,
+	int itemFunction,
+	Vector2f localStartPoint,
+	Vector2f globalMenuPosition,
+	Vector2f size,
+	Font& font,
+	int fontSize,
+	Color textFillColor,
+	std::string alignment
+)
+{
+	m_id = id;
+	m_string = string;
+	m_localStartPoint = localStartPoint;
+	m_textFillColor = textFillColor;
+	m_function = static_cast<MenuStringFunction>(itemFunction);
+
 	m_shape = RectangleShape(size);
 	m_shape.setFillColor(Color(255, 0, 0, 50));
 	m_shape.setOutlineThickness(2.f);
@@ -80,6 +147,11 @@ Text& MenuItem::getTextForChanging()
 int MenuItem::getId()
 {
 	return m_id;
+}
+
+MenuStringFunction MenuItem::getItemFunction()
+{
+	return m_function;
 }
 
 Vector2f MenuItem::localToGlobalPoint(Vector2f localPoint, Vector2f globalPosition)

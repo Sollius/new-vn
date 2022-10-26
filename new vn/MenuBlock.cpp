@@ -71,6 +71,55 @@ MenuBlock::MenuBlock(int itemsCount, Vector2f startPoint, Vector2f size, std::ve
 	m_mainShape.setOutlineColor(Color(0, 0, 0, 255));
 }
 
+MenuBlock::MenuBlock(
+	int itemsCount,
+	Vector2f startPoint,
+	Vector2f size,
+	std::vector<std::tuple<sf::String, int>> stringsAndFunctionNumbers,
+	Color textFillColor,
+	std::string alignment
+)
+{
+	m_itemsCount = itemsCount;
+	m_startPoint = startPoint;
+	m_size = size;
+	m_mainShape = RectangleShape(size);
+	m_alignment = alignment;
+	m_texture.loadFromFile("menu_bg.jpg");
+	m_sprite.setTexture(m_texture);
+	m_textFillColor = textFillColor;
+
+	if (!m_font.loadFromFile("calibri.ttf"))
+	{
+		std::cout << "Error with font loading" << std::endl;
+	};
+
+	for (int count = 0; count < itemsCount; count++)
+	{
+		m_items.push_back
+		(
+			MenuItem
+			(
+				count,
+				std::get<0>(stringsAndFunctionNumbers[count]),
+				std::get<1>(stringsAndFunctionNumbers[count]),
+				Vector2f(0.f, ((size.y / itemsCount) * count)),
+				startPoint,
+				Vector2f(size.x, (size.y / itemsCount)),
+				m_font,
+				m_fontSize,
+				m_textFillColor,
+				m_alignment
+			)
+		);
+	}
+
+	m_mainShape.setFillColor(Color(255, 255, 255, 50));
+	m_mainShape.setPosition(startPoint);
+	m_mainShape.setOutlineThickness(5.f);
+	m_mainShape.setOutlineColor(Color(0, 0, 0, 255));
+}
+
 std::vector<MenuItem>& MenuBlock::getItems()
 {
 	return m_items;

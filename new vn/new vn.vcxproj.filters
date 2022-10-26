@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Enums">
       <UniqueIdentifier>{fb07ee32-5c55-4e94-8f67-81a59a89fb37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameModes">
+      <UniqueIdentifier>{7b8432e0-edc7-4a04-ba13-28395bde46d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameModes">
+      <UniqueIdentifier>{ee257fd8-81d6-4b2e-af01-9bfaa6054e83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -39,6 +45,12 @@
     <ClCompile Include="MenuStringFunction.cpp">
       <Filter>Source Files\Enums</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\GameModes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\GameModes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuBlock.h">
@@ -52,6 +64,15 @@
     </ClInclude>
     <ClInclude Include="DebugConsole.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\GameModes</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\GameModes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModesHeader.h">
+      <Filter>Header Files\GameModes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

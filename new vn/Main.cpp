@@ -1,5 +1,7 @@
 #include "MainHeader.h"
+#include "GameModesHeader.h"
 #include "MenuBlock.h"
+
 #include <math.h>
 #include <cmath>
 
@@ -30,14 +32,21 @@ int main()
 
 	RenderWindow window(VideoMode(windowSize.x, windowSize.y), "SFML App", windowStyle);
 
-	MenuBlock menu(
+	Game(window);
+
+	MenuBlock menu
+	(
 		4,
 		Vector2f(100.f, 100.f),
 		Vector2f(150.f, 250.f),
-		{ String(L"New game"), String("Load game"), String("Settings"), String("Exit") },
+		std::vector<std::tuple<String, int>> {
+			std::make_tuple( String(L"New game"), 1 ),
+			std::make_tuple(String(L"Load game"), 2 ),
+			std::make_tuple(String(L"Settings"), 3 ),
+			std::make_tuple(String(L"Exit"), 4 )
+		},
 		Color(255, 255, 255, 200),
-		"left",
-		"menu_bg.jpg"
+		"left"
 	);
 
 	DebugConsole console
@@ -123,6 +132,24 @@ int main()
 					if (event.type == Event::MouseButtonReleased)
 					{
 						menu.setItemUnpicked(item);
+
+						switch (item.getItemFunction())
+						{
+						case MenuStringFunction::NONE:
+							std::cout << "Function is not define! See the function definition." << std::endl;
+							window.close();
+							break;
+						case MenuStringFunction::NEW_GAME:
+							Game(window);
+							break;
+						case MenuStringFunction::LOAD_GAME:
+							break;
+						case MenuStringFunction::SETTINGS:
+							break;
+						case MenuStringFunction::EXIT:
+							window.close();
+							break;
+						}
 					}
 				}
 

@@ -24,6 +24,17 @@ public:
 
 	MenuBlock(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, Color textFillColor, std::string alignment);
 
+	MenuBlock(int itemsCount, Vector2f startPoint, Vector2f size, std::vector<sf::String> strings, int itemsFunctions[], Color textFillColor, std::string alignment);
+
+	MenuBlock(
+		int itemsCount,
+		Vector2f startPoint,
+		Vector2f size,
+		std::vector<std::tuple<sf::String, int>> stringsAndFunctionNumbers,
+		Color textFillColor,
+		std::string alignment
+	);
+
 	std::vector<MenuItem>& getItems();
 
 	RectangleShape getMainShape();

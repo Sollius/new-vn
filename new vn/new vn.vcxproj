@@ -131,14 +131,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DebugConsole.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuBlock.cpp" />
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="MenuStringFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugConsole.h" />
+    <ClInclude Include="Game.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </ClInclude>
+    <ClInclude Include="GameModesHeader.h" />
     <ClInclude Include="MainHeader.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuBlock.h" />
     <ClInclude Include="MenuItem.h" />
   </ItemGroup>
