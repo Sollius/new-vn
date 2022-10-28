@@ -5,7 +5,7 @@
 
 int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock clock)
 {
-	Loading loading;
+	Loading loading(sf::Color(100, 100, 100, 150), sf::Color(50, 50, 50, 200), sf::Color(0, 150, 0, 200));
 	loading.showLoadingBarInCenter(window, Vector2f(200, 20), 4.f, clock);
 
 	MenuBlock m_menuBlock = MenuBlock

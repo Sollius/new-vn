@@ -188,6 +188,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionType.cpp" />
+    <ClCompile Include="BaseAction.cpp" />
     <ClCompile Include="Chapter.cpp" />
     <ClCompile Include="DebugConsole.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -199,6 +201,7 @@
     <ClCompile Include="MenuStringFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseAction.h" />
     <ClInclude Include="Chapter.h" />
     <ClInclude Include="DebugConsole.h" />
     <ClInclude Include="Game.h">

@@ -46,6 +46,12 @@
     <Filter Include="Source Files\Interface">
       <UniqueIdentifier>{d54667ef-0d2c-4f3b-ade7-0ed56ec7a158}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Actions">
+      <UniqueIdentifier>{60d290d8-2117-4840-a731-b7343e2f5eea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Actions">
+      <UniqueIdentifier>{23cc08c4-99f3-4d93-90e2-276326a61781}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -75,6 +81,12 @@
     <ClCompile Include="Loading.cpp">
       <Filter>Source Files\Interface</Filter>
     </ClCompile>
+    <ClCompile Include="ActionType.cpp">
+      <Filter>Source Files\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseAction.cpp">
+      <Filter>Source Files\Game\Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainHeader.h">
@@ -103,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="Loading.h">
       <Filter>Header Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAction.h">
+      <Filter>Header Files\Game\Actions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,14 +9,48 @@ class Loading
 {
 private:
 	std::array<sf::RectangleShape, 2> m_shapes = std::array<sf::RectangleShape, 2>();
-	float m_loadingProgress = 0.f;
+	float m_progressInPercents = 0.f;
+	float m_endPointInPercents = 100.f;
+	int m_updateRateInMs = 1;
+	float m_progressIncreasingStep = 0.1f;
+	sf::Color m_outShapeFillColor = sf::Color(100, 100, 100, 150);
+	sf::Color m_outShapeThicknessColor = sf::Color(50, 50, 50, 200);
+	sf::Color m_inShapeFillColor = sf::Color(0, 150, 0, 200);
 
 public:
-	Loading();
+	Loading(sf::Color outShapeFillColor, sf::Color outShapeThicknessColor, sf::Color inShapeFillColor);
 
-	Loading(int procentOfProgress);
+	void showLoadingBarInCenter(
+		sf::RenderWindow& window,
+		sf::Vector2f loadingShapeSize,
+		float outlineThickness,
+		sf::Clock clock
+	);
 
-	void showLoadingBarInCenter(sf::RenderWindow& window, sf::Vector2f loadingShapeSize, float outlineThickness, sf::Clock clock);
+	void showLoadingBarInCenterWithStartProgress(
+		sf::RenderWindow& window,
+		sf::Vector2f loadingShapeSize,
+		float outlineThickness,
+		sf::Clock clock,
+		float startPercentsOfProgress
+	);
+
+	void showLoadingBarInCenterWithEndPoint(
+		sf::RenderWindow& window,
+		sf::Vector2f loadingShapeSize,
+		float outlineThickness,
+		sf::Clock clock,
+		float endPointInPercents
+	);
+
+	void showLoadingBarInCenterWithStartProgressAndEndPoint(
+		sf::RenderWindow& window,
+		sf::Vector2f loadingShapeSize,
+		float outlineThickness,
+		sf::Clock clock,
+		float startPercentsOfProgress,
+		float endPointInPercents
+	);
 
 	void increaseProgressBar();
 };
