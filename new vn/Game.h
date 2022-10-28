@@ -2,4 +2,4 @@
 
 
 
-int Game(sf::RenderWindow& window);
+int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock clock);

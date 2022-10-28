@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+#include <vector>
 #include <iostream>
 #include <math.h>
 #include <cmath>
@@ -10,3 +12,4 @@
 #include "SFML/Window.hpp"
 
 #include "DebugConsole.h"
+#include "Loading.h"
