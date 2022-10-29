@@ -188,8 +188,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ActionType.cpp" />
+    <ClCompile Include="ActionType.h" />
+    <ClCompile Include="BackgroundAction.cpp" />
     <ClCompile Include="BaseAction.cpp" />
+    <ClCompile Include="BgActionType.h" />
     <ClCompile Include="Chapter.cpp" />
     <ClCompile Include="DebugConsole.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -198,9 +200,10 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuBlock.cpp" />
     <ClCompile Include="MenuItem.cpp" />
-    <ClCompile Include="MenuStringFunction.cpp" />
+    <ClCompile Include="MenuStringFunction.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackgroundAction.h" />
     <ClInclude Include="BaseAction.h" />
     <ClInclude Include="Chapter.h" />
     <ClInclude Include="DebugConsole.h" />

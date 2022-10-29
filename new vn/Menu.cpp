@@ -47,6 +47,7 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 					debugConsole.switchShowingConsole();
 					break;
 				}
+				break;
 			case Event::MouseMoved:
 				m_menuBlock.setItemsBoldIfHovered(window);
 
@@ -73,7 +74,7 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 
 			for (auto& item : m_menuBlock.getItems())
 			{
-				if (item.getText().getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
+				if (item.getText().getGlobalBounds().contains((float)Mouse::getPosition(window).x, (float)Mouse::getPosition(window).y))
 				{
 					if (event.type == Event::MouseButtonPressed)
 					{
@@ -81,7 +82,7 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 
 						if (event.type == Event::MouseMoved)
 						{
-							if (!item.getText().getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
+							if (!item.getText().getGlobalBounds().contains((float)Mouse::getPosition(window).x, (float)Mouse::getPosition(window).y))
 							{
 								m_menuBlock.setItemUnpicked(item);
 							}

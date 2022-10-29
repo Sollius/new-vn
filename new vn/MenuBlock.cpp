@@ -134,7 +134,7 @@ void MenuBlock::setItemsBoldIfHovered(Window& window)
 {
 	for (auto& item : m_items)
 	{
-		if (item.getText().getGlobalBounds().contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y))
+		if (item.getText().getGlobalBounds().contains((float)Mouse::getPosition(window).x, (float)Mouse::getPosition(window).y))
 		{
 			item.getTextForChanging().setStyle(Text::Style::Bold);
 		}

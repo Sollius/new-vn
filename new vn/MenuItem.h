@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MainHeader.h"
-#include "MenuStringFunction.cpp"
+#include "MenuStringFunction.h"
 
 using namespace sf;
 
