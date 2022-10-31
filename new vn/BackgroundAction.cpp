@@ -11,11 +11,11 @@ sf::Sprite BackgroundAction::getSprite()
 	return m_sprite;
 }
 
-void BackgroundAction::execute(RenderWindow& window, Clock clock)
+void BackgroundAction::execute(sf::RenderWindow& window, sf::Clock clock)
 {
 	bool isActionOver = false;
 
-	Uint8 spriteColorAlpha = 0;
+	sf::Uint8 spriteColorAlpha = 0;
 	switch (m_actionType)
 	{
 	case BgActionType::MOVING_IN:
@@ -27,23 +27,23 @@ void BackgroundAction::execute(RenderWindow& window, Clock clock)
 	case BgActionType::MOVING_THROUGH:
 		break;
 	}
-	Time time = clock.restart();
+	sf::Time time = clock.restart();
 
 	while (!isActionOver)
 	{
-		Event event;
+		sf::Event event;
 
 		while (window.pollEvent(event))
 		{
 			switch (event.type)
 			{
-			case Event::Closed:
+			case sf::Event::Closed:
 				window.close();
 				break;
-			case Event::KeyPressed:
+			case sf::Event::KeyPressed:
 				switch (event.key.code)
 				{
-				case Keyboard::Escape:
+				case sf::Keyboard::Escape:
 					exit(0);
 					break;
 				}
@@ -58,7 +58,7 @@ void BackgroundAction::execute(RenderWindow& window, Clock clock)
 			if (time.asMilliseconds() >= 10 && spriteColorAlpha < 255)
 			{
 				time = clock.restart();
-				m_sprite.setColor(Color(m_sprite.getColor().r, m_sprite.getColor().g, m_sprite.getColor().b, spriteColorAlpha++));
+				m_sprite.setColor(sf::Color(m_sprite.getColor().r, m_sprite.getColor().g, m_sprite.getColor().b, spriteColorAlpha++));
 			}
 			else
 				if (spriteColorAlpha >= 255)
@@ -80,7 +80,7 @@ void BackgroundAction::execute(RenderWindow& window, Clock clock)
 			if (time.asMilliseconds() >= 10 && spriteColorAlpha > 0)
 			{
 				time = clock.restart();
-				m_sprite.setColor(Color(m_sprite.getColor().r, m_sprite.getColor().g, m_sprite.getColor().b, spriteColorAlpha--));
+				m_sprite.setColor(sf::Color(m_sprite.getColor().r, m_sprite.getColor().g, m_sprite.getColor().b, spriteColorAlpha--));
 			}
 			else
 				if (spriteColorAlpha <= 0)
@@ -102,9 +102,9 @@ void BackgroundAction::execute(RenderWindow& window, Clock clock)
 	}
 }
 
-void BackgroundAction::spriteDrawing(RenderWindow& window)
+void BackgroundAction::spriteDrawing(sf::RenderWindow& window)
 {
-	window.clear(Color::Black);
+	window.clear(sf::Color::Black);
 
 	window.draw(m_sprite);
 

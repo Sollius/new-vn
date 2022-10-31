@@ -14,7 +14,7 @@ public:
 
 	sf::Sprite getSprite();
 
-	void execute(RenderWindow& window, Clock clock);
+	virtual void execute(sf::RenderWindow& window, sf::Clock clock);
 
-	void spriteDrawing(RenderWindow& window);
+	void spriteDrawing(sf::RenderWindow& window);
 };

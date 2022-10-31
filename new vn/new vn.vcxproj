@@ -188,6 +188,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionExecutor.cpp" />
     <ClCompile Include="ActionType.h" />
     <ClCompile Include="BackgroundAction.cpp" />
     <ClCompile Include="BaseAction.cpp" />
@@ -201,8 +202,10 @@
     <ClCompile Include="MenuBlock.cpp" />
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="MenuStringFunction.h" />
+    <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionExecutor.h" />
     <ClInclude Include="BackgroundAction.h" />
     <ClInclude Include="BaseAction.h" />
     <ClInclude Include="Chapter.h" />
@@ -217,6 +220,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuBlock.h" />
     <ClInclude Include="MenuItem.h" />
+    <ClInclude Include="Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="calibri.ttf" />
