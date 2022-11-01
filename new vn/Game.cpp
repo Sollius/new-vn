@@ -20,15 +20,24 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 	Texture texture;
 	texture.loadFromFile("menu_bg.jpg");
 	sf::Sprite sprite = Sprite(texture, IntRect(Vector2i(0, 0), Vector2i(1920, 1080)));
-	BackgroundAction actions[2] =
+
+	std::vector<std::shared_ptr<BaseAction>> actions
 	{
-		BackgroundAction(0, ActionType::BACKGROUND, BgActionType::MOVING_IN, sprite),
-		BackgroundAction(1, ActionType::BACKGROUND, BgActionType::MOVING_OUT, sprite)
+		std::shared_ptr<BaseAction> (std::make_shared<BackgroundAction>(0, ActionType::BACKGROUND, BgActionType::MOVING_IN, sprite, 3.f)),
+		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(1, ActionType::BACKGROUND, BgActionType::MOVING_THROUGH, sprite, 3, Vector2f(-200.f, -200.f), Vector2f(200.f, 200.f))),
+		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(2, ActionType::BACKGROUND, BgActionType::MOVING_OUT, sprite, 5))
+	};
+
+	std::vector<BackgroundAction> actionssss =
+	{
+		BackgroundAction(0, ActionType::BACKGROUND, BgActionType::MOVING_IN, sprite, 3),
+		BackgroundAction(1, ActionType::BACKGROUND, BgActionType::MOVING_THROUGH, sprite, 3, Vector2f(-200.f, -200.f), Vector2f(200.f, 200.f)),
+		BackgroundAction(2, ActionType::BACKGROUND, BgActionType::MOVING_OUT, sprite, 5)
 	};
 
 	for (auto& action : actions)
 	{
-		ActionExecutor& actionExecutor = action;
+		ActionExecutor& actionExecutor = *action;
 		actionExecutor.execute(window, clock);
 	}
 

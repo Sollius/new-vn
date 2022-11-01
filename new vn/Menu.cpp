@@ -24,6 +24,8 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 		"left"
 	);
 
+	Time time = clock.restart();
+
 	while (window.isOpen())
 	{
 		Event event;
@@ -155,6 +157,7 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 		}
 
 		window.display();
+
 	}
 
 	return 0;
