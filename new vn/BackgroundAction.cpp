@@ -1,32 +1,20 @@
 #include "BackgroundAction.h"
 
-BackgroundAction::BackgroundAction(int orderNumber, ActionType actionType, BgActionType bgActionType, sf::Sprite sprite, float actionDuration) : BaseAction::BaseAction(orderNumber, actionType, actionDuration)
-{
-	m_sprite = sprite;
-	m_actionType = bgActionType;
-}
+BackgroundAction::BackgroundAction() {};
 
-BackgroundAction::BackgroundAction(int orderNumber, ActionType actionType, BgActionType bgActionType, sf::Sprite sprite, float actionDuration, sf::Vector2f bgMovingEndPoint) : BaseAction(orderNumber, actionType, actionDuration)
+BackgroundAction::BackgroundAction(
+	int orderNumber,
+	ActionType actionType,
+	BgActionType bgActionType,
+	sf::Sprite sprite,
+	float actionDuration,
+	Vector2f movingStartPoint,
+	Vector2f movingEndPoint) :
+		BaseAction(orderNumber, actionType, actionDuration, movingStartPoint, movingEndPoint)
 {
 	m_sprite = sprite;
+	m_sprite.setPosition(getStartPoint());
 	m_actionType = bgActionType;
-	m_bgMovingEndPoint = bgMovingEndPoint;
-}
-
-BackgroundAction::BackgroundAction(int orderNumber, ActionType actionType, BgActionType bgActionType, sf::Sprite sprite, float actionDuration, Vector2f bgMovingStartPoint, Vector2f bgMovingEndPoint) : BaseAction(orderNumber, actionType, actionDuration)
-{
-	m_sprite = sprite;
-	m_bgMovingStartPoint = bgMovingStartPoint;
-	m_sprite.setPosition(m_bgMovingStartPoint);
-	m_actionType = bgActionType;
-	m_bgMovingEndPoint = bgMovingEndPoint;
-}
-
-BackgroundAction::BackgroundAction(int orderNumber, ActionType actionType, BgActionType bgActionType, sf::Sprite sprite, float animationSpeed, float actionDuration) : BaseAction::BaseAction(orderNumber, actionType, actionDuration)
-{
-	m_sprite = sprite;
-	m_actionType = bgActionType;
-	m_animationSpeedInFPS = animationSpeed;
 }
 
 sf::Sprite BackgroundAction::getSprite()
@@ -36,14 +24,14 @@ sf::Sprite BackgroundAction::getSprite()
 
 void BackgroundAction::execute(sf::RenderWindow& window, sf::Clock clock)
 {
-	if (m_isActionOver)
+	if (getState())
 	{
-		m_isActionOver = false;
+		setState(false);
 	}
 
 	float alphaStep = 255 / (getDuration() * 60);
 	float spriteColorAlpha = 0.f;
-	Vector2f bgMovingStep = Vector2f((m_bgMovingEndPoint.x - m_bgMovingStartPoint.x) / getDuration() * 60, (m_bgMovingEndPoint.y - m_bgMovingStartPoint.y) / getDuration() * 60);
+	Vector2f bgMovingStep = Vector2f((getEndPoint().x - getStartPoint().x) / getDuration() * 60, (getEndPoint().y - getStartPoint().y) / getDuration() * 60);
 
 	switch (m_actionType)
 	{
@@ -61,7 +49,7 @@ void BackgroundAction::execute(sf::RenderWindow& window, sf::Clock clock)
 
 	sf::Time time = clock.restart();
 
-	while (!m_isActionOver)
+	while (!getState())
 	{
 		sf::Event event;
 
@@ -97,7 +85,7 @@ void BackgroundAction::execute(sf::RenderWindow& window, sf::Clock clock)
 				else
 					if (spriteColorAlpha >= 255)
 					{
-						m_isActionOver = true;
+						setState(true);
 					}
 
 				spriteDrawing(window);
@@ -117,10 +105,10 @@ void BackgroundAction::execute(sf::RenderWindow& window, sf::Clock clock)
 				else
 					if (spriteColorAlpha <= 0)
 					{
-						m_isActionOver = true;
+						setState(true);
 					}
 
-				spriteDrawing(window);
+				return m_sprite;
 				break;
 			}
 
@@ -134,28 +122,19 @@ void BackgroundAction::execute(sf::RenderWindow& window, sf::Clock clock)
 					m_sprite.setPosition(m_sprite.getPosition() + bgMovingStep);
 				}
 
-				if (m_sprite.getPosition().x - m_bgMovingEndPoint.x > bgMovingStep.x && bgMovingStep.x > 0.f)
-					m_sprite.setPosition(m_bgMovingEndPoint);
+				if (m_sprite.getPosition().x - getEndPoint().x > bgMovingStep.x && bgMovingStep.x > 0.f)
+					m_sprite.setPosition(getEndPoint());
 
-				if (m_sprite.getPosition().x - m_bgMovingEndPoint.x < bgMovingStep.x && bgMovingStep.x < 0.f)
-					m_sprite.setPosition(m_bgMovingEndPoint);
+				if (m_sprite.getPosition().x - getEndPoint().x < bgMovingStep.x && bgMovingStep.x < 0.f)
+					m_sprite.setPosition(getEndPoint());
 
-				if (m_bgMovingStartPoint == m_bgMovingEndPoint)
+				if (getStartPoint() == getEndPoint())
 				{
-					m_isActionOver = true;
+					setState(true);
 				}
 
 				break;
 			}
 		}
 	}
-}
-
-void BackgroundAction::spriteDrawing(sf::RenderWindow& window)
-{
-	window.clear(sf::Color::Black);
-
-	window.draw(m_sprite);
-
-	window.display();
 }

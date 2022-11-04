@@ -7,6 +7,6 @@ class ActionExecutor
 public:
 	ActionExecutor();
 
-	virtual void execute(RenderWindow& window, Clock clock);
+	virtual Sprite execute(RenderWindow& window, Clock clock);
 };
 
