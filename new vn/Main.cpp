@@ -47,6 +47,7 @@ int main()
 	);
 
 	RenderWindow window(VideoMode(windowSize.x, windowSize.y), "SFML App", windowStyle);
+	window.setFramerateLimit(60);
 
 	Clock clock;
 

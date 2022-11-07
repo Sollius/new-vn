@@ -25,11 +25,13 @@ public:
 
 	float getDuration();
 
-	bool getState();
+	virtual bool getState();
+
+	virtual Sprite getSprite();
 
 	Vector2f getStartPoint();
 
 	Vector2f getEndPoint();
 
-	virtual Sprite execute(sf::RenderWindow& window, sf::Clock clock);
+	virtual void execute(sf::Clock clock);
 };

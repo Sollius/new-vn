@@ -33,16 +33,11 @@ void Loading::showLoadingBarInCenter(
 		m_shapes[0].setOutlineThickness(outlineThickness);
 	}
 
-	sf::Time time = clock.restart();
-
 	while (m_progressInPercents <= m_endPointInPercents)
 	{
-		time = clock.getElapsedTime();
-
-		if (time.asMilliseconds() >= m_updateRateInMs && m_progressInPercents <= m_endPointInPercents)
+		if (m_progressInPercents <= 99.9)
 		{
 			increaseProgressBar();
-			time = clock.restart();
 			m_shapes[1].setSize(sf::Vector2f((m_shapes[0].getSize().x / 100) * m_progressInPercents, m_shapes[1].getSize().y));
 
 			window.clear(sf::Color::Black);
@@ -53,6 +48,10 @@ void Loading::showLoadingBarInCenter(
 			}
 
 			window.display();
+		}
+		else
+		{
+			return;
 		}
 	}
 }
@@ -98,7 +97,7 @@ void Loading::showLoadingBarInCenterWithStartProgress(
 		{
 			time = clock.getElapsedTime();
 
-			if (time.asMilliseconds() >= m_updateRateInMs && m_progressInPercents <= m_endPointInPercents)
+			if (m_progressInPercents <= m_endPointInPercents)
 			{
 				increaseProgressBar();
 				time = clock.restart();
@@ -162,7 +161,7 @@ void Loading::showLoadingBarInCenterWithEndPoint(
 		{
 			time = clock.getElapsedTime();
 
-			if (time.asMilliseconds() >= m_updateRateInMs && m_progressInPercents <= endPointInPercents)
+			if (m_progressInPercents <= endPointInPercents)
 			{
 				increaseProgressBar();
 				time = clock.restart();
@@ -233,7 +232,7 @@ void Loading::showLoadingBarInCenterWithStartProgressAndEndPoint(
 		{
 			time = clock.getElapsedTime();
 
-			if (time.asMilliseconds() >= m_updateRateInMs && m_progressInPercents <= endPointInPercents)
+			if (m_progressInPercents <= endPointInPercents)
 			{
 				increaseProgressBar();
 				time = clock.restart();

@@ -31,6 +31,12 @@ bool BaseAction::getState()
 	return m_isActionOver;
 }
 
+Sprite BaseAction::getSprite()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
 Vector2f BaseAction::getStartPoint()
 {
 	return m_movingStartPoint;
@@ -41,7 +47,7 @@ Vector2f BaseAction::getEndPoint()
 	return m_movingEndPoint;
 }
 
-Sprite BaseAction::execute(sf::RenderWindow& window, sf::Clock clock)
+void BaseAction::execute(sf::Clock clock)
 {
 	if (typeid(decltype(clock)).name() == "class BaseAction")
 	{

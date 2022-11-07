@@ -18,7 +18,5 @@ public:
 
 	Sprite getSprite();
 
-	virtual Sprite execute(RenderWindow& window, Clock clock);
-
-	void spriteDrawing(RenderWindow& window);
+	virtual void execute(Clock clock);
 };

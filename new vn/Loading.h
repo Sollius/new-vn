@@ -12,7 +12,7 @@ private:
 	float m_progressInPercents = 0.f;
 	float m_endPointInPercents = 100.f;
 	int m_updateRateInMs = 1;
-	float m_progressIncreasingStep = 0.1f;
+	float m_progressIncreasingStep = 2.f;
 	sf::Color m_outShapeFillColor = sf::Color(100, 100, 100, 150);
 	sf::Color m_outShapeThicknessColor = sf::Color(50, 50, 50, 200);
 	sf::Color m_inShapeFillColor = sf::Color(0, 150, 0, 200);

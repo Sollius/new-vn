@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MainHeader.h"
+#include "BaseAction.h"
 
 class Scene
 {
@@ -18,10 +19,16 @@ public:
 
 	Scene(Sprite background, std::vector<Sprite> characters);
 
+	bool isActionsOver();
+
+	void setActions(std::vector<std::shared_ptr<BaseAction>> actions);
+
 	void display(RenderWindow& window, Clock clock);
 
 	void pushAction(Sprite sprite);
 
 	void setBackground(Sprite sprite);
+
+	Sprite getBackground();
 };
 

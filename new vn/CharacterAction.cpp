@@ -22,7 +22,7 @@ Sprite CharacterAction::getSprite()
 	return m_sprite;
 }
 
-Sprite CharacterAction::execute(RenderWindow& window, Clock clock)
+void CharacterAction::execute(Clock clock)
 {
 	if (getState())
 	{
@@ -47,94 +47,57 @@ Sprite CharacterAction::execute(RenderWindow& window, Clock clock)
 		break;
 	}
 
-	sf::Time time = clock.restart();
-
-	while (!getState())
-	{
-		sf::Event event;
-
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-			case sf::Event::Closed:
-				window.close();
-				break;
-			case sf::Event::KeyPressed:
-				switch (event.key.code)
-				{
-				case sf::Keyboard::Escape:
-					return;
-					break;
-				}
-			}
-		}
 
 		switch (m_actionType)
 		{
-		case CharActionType::MOVING_IN:
-		{
-			time = clock.getElapsedTime();
-
-			if (time.asMicroseconds() >= 16667 && spriteColorAlpha < 255)
+			case CharActionType::MOVING_IN:
 			{
-				time = clock.restart();
-				spriteColorAlpha = (spriteColorAlpha + alphaStep > 255 ? 255 : spriteColorAlpha + alphaStep);
-				m_sprite.setColor(sf::Color(m_sprite.getColor().r, m_sprite.getColor().g, m_sprite.getColor().b, spriteColorAlpha));
-			}
-			else
-				if (spriteColorAlpha >= 255)
+				if (spriteColorAlpha < 255)
 				{
-					setState(true);
+					spriteColorAlpha = (spriteColorAlpha + alphaStep > 255 ? 255 : spriteColorAlpha + alphaStep);
+					m_sprite.setColor(sf::Color(m_sprite.getColor().r, m_sprite.getColor().g, m_sprite.getColor().b, spriteColorAlpha));
 				}
+				else
+					if (spriteColorAlpha >= 255)
+					{
+						setState(true);
+					}
 
-			spriteDrawing(window);
-			break;
-		}
-
-		case CharActionType::MOVING_OUT:
-		{
-			time = clock.getElapsedTime();
-
-			if (time.asMicroseconds() >= 16667 && spriteColorAlpha > 0)
-			{
-				time = clock.restart();
-				spriteColorAlpha = (spriteColorAlpha - alphaStep < 0 ? 0 : spriteColorAlpha - alphaStep);
-				m_sprite.setColor(sf::Color(m_sprite.getColor().r, m_sprite.getColor().g, m_sprite.getColor().b, spriteColorAlpha));
+				break;
 			}
-			else
-				if (spriteColorAlpha <= 0)
-				{
-					setState(true);
-				}
 
-			spriteDrawing(window);
-			break;
-		}
-
-		case CharActionType::MOVING_THROUGH:
-		{
-			time = clock.getElapsedTime();
-
-			if (time.asMicroseconds() > 16667)
+			case CharActionType::MOVING_OUT:
 			{
-				time = clock.restart();
+				if (spriteColorAlpha > 0)
+				{
+					spriteColorAlpha = (spriteColorAlpha - alphaStep < 0 ? 0 : spriteColorAlpha - alphaStep);
+					m_sprite.setColor(sf::Color(m_sprite.getColor().r, m_sprite.getColor().g, m_sprite.getColor().b, spriteColorAlpha));
+				}
+				else
+					if (spriteColorAlpha <= 0)
+					{
+						setState(true);
+					}
+
+				break;
+			}
+
+			case CharActionType::MOVING_THROUGH:
+			{
 				m_sprite.setPosition(m_sprite.getPosition().x + bgMovingStep.x, m_sprite.getPosition().y + bgMovingStep.y);
+
+				if (m_sprite.getPosition().x - getEndPoint().x > bgMovingStep.x && bgMovingStep.x > 0.f)
+					m_sprite.setPosition(getEndPoint());
+
+				if (m_sprite.getPosition().x - getEndPoint().x < bgMovingStep.x && bgMovingStep.x < 0.f)
+					m_sprite.setPosition(getEndPoint());
+
+				if (getStartPoint().x == getEndPoint().x && getStartPoint().y == getStartPoint().y)
+				{
+					setState(true);
+				}
+
+				break;
 			}
-
-			if (m_sprite.getPosition().x - getEndPoint().x > bgMovingStep.x && bgMovingStep.x > 0.f)
-				m_sprite.setPosition(getEndPoint());
-
-			if (m_sprite.getPosition().x - getEndPoint().x < bgMovingStep.x && bgMovingStep.x < 0.f)
-				m_sprite.setPosition(getEndPoint());
-
-			if (getStartPoint().x == getEndPoint().x && getStartPoint().y == getStartPoint().y)
-			{
-				setState(true);
-			}
-
-			break;
 		}
-		}
-	}
 }

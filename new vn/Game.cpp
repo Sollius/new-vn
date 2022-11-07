@@ -31,21 +31,37 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 	Vector2f charPosition = Vector2f(500, 200);
 
 	Scene scene = Scene();
+	scene.setBackground(bgSprite);
 
-	std::vector<std::shared_ptr<BaseAction>> actions
+	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 	{
-		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(0, ActionType::BACKGROUND, BgActionType::MOVING_IN, bgSprite, 3.f, nullVectorF, nullVectorF)),
+		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(0, ActionType::BACKGROUND, BgActionType::MOVING_IN, scene.getBackground(), 3.f, nullVectorF, nullVectorF)),
+	});
+	scene.display(window, clock);
+
+	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
+	{
+		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(2, ActionType::BACKGROUND, BgActionType::MOVING_THROUGH, scene.getBackground(), 3, Vector2f(0.f, 0.f), Vector2f(200.f, 0.f))),
+	});
+	scene.display(window, clock);
+
+	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
+	{
+		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(3, ActionType::BACKGROUND, BgActionType::MOVING_OUT, bgSprite, 5.f, Vector2f(200.f, 0.f), Vector2f(200.f, 0.f)))
+	});
+	scene.display(window, clock);
+
+	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
+	{
 		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::MOVING_IN, charSprite, 1.f, charPosition, charPosition)),
-		////std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(2, ActionType::BACKGROUND, BgActionType::MOVING_THROUGH, bgSprite, 3, Vector2f(-200.f, -200.f), Vector2f(200.f, 200.f))),
-		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(3, ActionType::CHARACTER, CharActionType::MOVING_OUT, charSprite, 2.f, charPosition, charPosition)),
-		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(3, ActionType::BACKGROUND, BgActionType::MOVING_OUT, bgSprite, 5.f, nullVectorF, nullVectorF))
-	};
+	});
+	scene.display(window, clock);
 
-	for (auto& action : actions)
+	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 	{
-		ActionExecutor& actionExecutor = *action;
-		scene.setBackground(actionExecutor.execute(window, clock));
-	}
+		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(3, ActionType::CHARACTER, CharActionType::MOVING_OUT, charSprite, 2.f, charPosition, charPosition)),
+	});
+	scene.display(window, clock);
 
 	return 0;
 }

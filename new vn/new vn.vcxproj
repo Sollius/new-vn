@@ -203,6 +203,7 @@
     <ClCompile Include="MenuBlock.cpp" />
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="MenuStringFunction.h" />
+    <ClCompile Include="PlayingInterface.cpp" />
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +224,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuBlock.h" />
     <ClInclude Include="MenuItem.h" />
+    <ClInclude Include="PlayingInterface.h" />
     <ClInclude Include="Scene.h" />
   </ItemGroup>
   <ItemGroup>
