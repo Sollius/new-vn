@@ -231,6 +231,7 @@
     <Font Include="calibri.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="char0.png" />
     <Image Include="menu_bg.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

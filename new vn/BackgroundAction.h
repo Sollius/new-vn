@@ -11,9 +11,6 @@ class BackgroundAction : public BaseAction
 private:
 	BgActionType m_actionType = BgActionType::NONE;
 	sf::Sprite m_sprite = sf::Sprite();
-	std::tuple<float, float, float, float> m_colorChangingStep = std::tuple<float, float, float, float>{ 0.f, 0.f, 0.f, 0.f };
-	Vector2f m_movingStep = Vector2f(0.f, 0.f);
-	float m_currentAlpha = 0.f;
 
 public:
 	BackgroundAction();

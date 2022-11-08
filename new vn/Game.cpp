@@ -26,7 +26,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 	sf::Sprite bgSprite = Sprite(bgTexture, IntRect(Vector2i(0, 0), (Vector2i)bgTexture.getSize()));
 
 	charTexture.loadFromFile("char0.png");
-	Sprite charSprite = Sprite(charTexture, IntRect(Vector2i(500, 200), (Vector2i)charTexture.getSize()));
+	Sprite charSprite = Sprite(charTexture, IntRect(Vector2i(0, 0), (Vector2i)charTexture.getSize()));
 
 	Vector2f charPosition = Vector2f(500, 200);
 
@@ -36,6 +36,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 	{
 		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(0, ActionType::BACKGROUND, BgActionType::MOVING_IN, scene.getBackground(), 3.f, nullVectorF, nullVectorF)),
+		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::MOVING_IN, charSprite, 1.f, charPosition, charPosition)),
 	});
 	scene.display(window, clock);
 
@@ -47,18 +48,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 
 	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 	{
-		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(3, ActionType::BACKGROUND, BgActionType::MOVING_OUT, bgSprite, 5.f, Vector2f(200.f, 0.f), Vector2f(200.f, 0.f)))
-	});
-	scene.display(window, clock);
-
-	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
-	{
-		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::MOVING_IN, charSprite, 1.f, charPosition, charPosition)),
-	});
-	scene.display(window, clock);
-
-	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
-	{
+		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(3, ActionType::BACKGROUND, BgActionType::MOVING_OUT, bgSprite, 5.f, Vector2f(200.f, 0.f), Vector2f(200.f, 0.f))),
 		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(3, ActionType::CHARACTER, CharActionType::MOVING_OUT, charSprite, 2.f, charPosition, charPosition)),
 	});
 	scene.display(window, clock);

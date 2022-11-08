@@ -51,6 +51,8 @@ void Scene::display(RenderWindow& window, Clock clock)
 				}
 			}
 		}
+
+		////m_characters.clear();
 	
 		for (auto& action : m_actions)
 		{
@@ -59,30 +61,36 @@ void Scene::display(RenderWindow& window, Clock clock)
 			window.clear(Color::Black);
 
 			actionExecutor.execute(clock);
-			window.draw(actionExecutor.getSprite());
 
-			window.display();
+			if (action.get()->getActionType() == ActionType::BACKGROUND)
+			{
+				setBackground(actionExecutor.getSprite());
+			}
+			else
+			{
+				m_characters.push_back(actionExecutor.getSprite());
+			}
 
 			if (action.get()->getState())
 			{
 				finishedActionsCount++;
 			}
-
-			if (finishedActionsCount == m_actions.size())
-			{
-				m_actions.clear();
-				return;
-			}
 		}
 
-		////window.draw(m_background);
+		window.draw(m_background);
 
-		////for (auto& character : m_characters)
-		////{
-		////	window.draw(character);
-		////}
+		for (auto& character : m_characters)
+		{
+			window.draw(character);
+		}
 
+		window.display();
 
+		if (finishedActionsCount == m_actions.size())
+		{
+			m_actions.clear();
+			return;
+		}
 	}
 }
 

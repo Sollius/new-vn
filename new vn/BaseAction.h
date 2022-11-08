@@ -11,7 +11,10 @@ private:
 	ActionType m_actionType = ActionType::NONE;
 	Vector2f m_movingStartPoint = Vector2f(0.f, 0.f);
 	Vector2f m_movingEndPoint = Vector2f(0.f, 0.f);
+	float m_currentAlpha = 0.f;
 	float m_actionDurationInS = 0.f;
+	std::tuple<float, float, float, float> m_colorChangingStep = std::tuple<float, float, float, float>{ 0.f, 0.f, 0.f, 0.f };
+	Vector2f m_movingStep = Vector2f(0.f, 0.f);
 	bool m_isActionOver = false;
 
 public:
@@ -21,11 +24,25 @@ public:
 
 	void setState(bool state);
 
+	void setCurrentAlpha(float currentAlpha);
+
+	void setColorChangingStep(std::tuple<float, float, float, float> colorChangingStep);
+
+	void setMovingStep(Vector2f movingStep);
+
+	ActionType getActionType();
+
 	int getOrderNumber();
 
 	float getDuration();
 
 	virtual bool getState();
+
+	float getCurrentAlpha();
+
+	std::tuple<float, float, float, float> getColorChangingStep();
+
+	Vector2f getMovingStep();
 
 	virtual Sprite getSprite();
 

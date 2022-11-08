@@ -16,6 +16,26 @@ void BaseAction::setState(bool state)
 	m_isActionOver = state;
 }
 
+void BaseAction::setCurrentAlpha(float currentAlpha)
+{
+	m_currentAlpha = currentAlpha;
+}
+
+void BaseAction::setColorChangingStep(std::tuple<float, float, float, float> colorChangingStep)
+{
+	m_colorChangingStep = colorChangingStep;
+}
+
+void BaseAction::setMovingStep(Vector2f movingStep)
+{
+	m_movingStep = movingStep;
+}
+
+ActionType BaseAction::getActionType()
+{
+	return m_actionType;
+}
+
 int BaseAction::getOrderNumber()
 {
 	return m_orderNumber;
@@ -29,6 +49,21 @@ float BaseAction::getDuration()
 bool BaseAction::getState()
 {
 	return m_isActionOver;
+}
+
+float BaseAction::getCurrentAlpha()
+{
+	return m_currentAlpha;
+}
+
+std::tuple<float, float, float, float> BaseAction::getColorChangingStep()
+{
+	return m_colorChangingStep;
+}
+
+Vector2f BaseAction::getMovingStep()
+{
+	return m_movingStep;
 }
 
 Sprite BaseAction::getSprite()

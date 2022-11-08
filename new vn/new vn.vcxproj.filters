@@ -165,5 +165,8 @@
     <Image Include="menu_bg.jpg">
       <Filter>Resource Files\img</Filter>
     </Image>
+    <Image Include="char0.png">
+      <Filter>Resource Files\img</Filter>
+    </Image>
   </ItemGroup>
 </Project>

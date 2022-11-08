@@ -14,7 +14,15 @@ private:
 public:
 	CharacterAction();
 
-	CharacterAction(int orderNumber, ActionType actionType, CharActionType bgActionType, sf::Sprite sprite, float actionDuration, Vector2f movingStartPoint, Vector2f movingEndPoint);
+	CharacterAction(
+		int orderNumber,
+		ActionType actionType,
+		CharActionType bgActionType,
+		sf::Sprite sprite,
+		float actionDuration,
+		Vector2f movingStartPoint,
+		Vector2f movingEndPoint
+	);
 
 	Sprite getSprite();
 
