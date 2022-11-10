@@ -22,17 +22,17 @@ BackgroundAction::BackgroundAction(
 	case BgActionType::AWAIT:
 		break;
 	case BgActionType::MOVING_IN:
-		m_sprite.setPosition(getStartPoint());
+		m_sprite.setPosition(getStartPosition());
 		m_sprite.setColor(Color(255, 255, 255, 0));
 		setCurrentAlpha((float)m_sprite.getColor().a);
 		setColorChangingStep({0.f, 0.f, 0.f, 255 / (getDuration() * 60)});
 		break;
 	case BgActionType::MOVING_THROUGH:
-		m_sprite.setPosition(getStartPoint());
-		setMovingStep(Vector2f((getEndPoint().x - getStartPoint().x) / (getDuration() * 60), (getEndPoint().y - getStartPoint().y) / (getDuration() * 60)));
+		m_sprite.setPosition(getStartPosition());
+		setMovingStep(Vector2f((getEndPosition().x - getStartPosition().x) / (getDuration() * 60), (getEndPosition().y - getStartPosition().y) / (getDuration() * 60)));
 		break;
 	case BgActionType::MOVING_OUT:
-		m_sprite.setPosition(getStartPoint());
+		m_sprite.setPosition(getStartPosition());
 		m_sprite.setColor(Color(255, 255, 255, 255));
 		setCurrentAlpha((float)m_sprite.getColor().a);
 		setColorChangingStep({0.f, 0.f, 0.f, 255 / (getDuration() * 60)});
@@ -50,7 +50,7 @@ sf::Sprite BackgroundAction::getSprite()
 	return m_sprite;
 }
 
-void BackgroundAction::execute(sf::Clock clock)
+void BackgroundAction::execute(sf::Clock clock, Time time)
 {
 	if (!getState())
 	{
@@ -99,14 +99,14 @@ void BackgroundAction::execute(sf::Clock clock)
 
 			case BgActionType::MOVING_THROUGH:
 			{
-				if ((getMovingStep().x > 0 && getMovingStep().x > (m_sprite.getPosition().x - getEndPoint().x)) ||
-					(getMovingStep().x < 0 && getMovingStep().x < (m_sprite.getPosition().x + getEndPoint().x)))
+				if ((getMovingStep().x > 0 && getMovingStep().x > (m_sprite.getPosition().x - getEndPosition().x)) ||
+					(getMovingStep().x < 0 && getMovingStep().x < (m_sprite.getPosition().x + getEndPosition().x)))
 				{
 					m_sprite.setPosition(Vector2f(m_sprite.getPosition().x + getMovingStep().x, m_sprite.getPosition().y + getMovingStep().y));
 				}
 				else
 				{
-					m_sprite.setPosition(getEndPoint());
+					m_sprite.setPosition(getEndPosition());
 					setState(true);
 				}
 				break;

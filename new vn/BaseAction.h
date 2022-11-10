@@ -46,9 +46,9 @@ public:
 
 	virtual Sprite getSprite();
 
-	Vector2f getStartPoint();
+	Vector2f getStartPosition();
 
-	Vector2f getEndPoint();
+	Vector2f getEndPosition();
 
-	virtual void execute(sf::Clock clock);
+	virtual void execute(sf::Clock clock, Time time);
 };

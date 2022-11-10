@@ -29,5 +29,5 @@ public:
 
 	sf::Sprite getSprite();
 
-	virtual void execute(sf::Clock clock);
+	virtual void execute(sf::Clock clock, Time time);
 };

@@ -2,7 +2,7 @@
 
 ActionExecutor::ActionExecutor() {}
 
-void ActionExecutor::execute(Clock clock)
+void ActionExecutor::execute(Clock clock, Time time)
 {
 	throw __uncaught_exception;
 	exit(1);

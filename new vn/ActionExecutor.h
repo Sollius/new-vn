@@ -7,7 +7,7 @@ class ActionExecutor
 public:
 	ActionExecutor();
 
-	virtual void execute(Clock clock);
+	virtual void execute(Clock clock, Time time);
 
 	virtual bool getState();
 

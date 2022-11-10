@@ -42,6 +42,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 
 	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 	{
+		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::AWAIT, charSprite, 5.f, charPosition, charPosition)),
 		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(2, ActionType::BACKGROUND, BgActionType::MOVING_THROUGH, scene.getBackground(), 3, Vector2f(0.f, 0.f), Vector2f(200.f, 0.f))),
 	});
 	scene.display(window, clock);

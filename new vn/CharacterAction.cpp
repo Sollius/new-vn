@@ -8,9 +8,9 @@ CharacterAction::CharacterAction(
 	CharActionType charActionType,
 	sf::Sprite sprite,
 	float actionDuration,
-	Vector2f movingStartPoint,
-	Vector2f movingEndPoint) :
-		BaseAction(orderNumber, actionType, actionDuration, movingStartPoint, movingEndPoint)
+	Vector2f startPosition,
+	Vector2f endPosition) :
+		BaseAction(orderNumber, actionType, actionDuration, startPosition, endPosition)
 {
 	m_sprite = sprite;
 	m_actionType = charActionType;
@@ -20,19 +20,20 @@ CharacterAction::CharacterAction(
 	case CharActionType::NONE:
 		break;
 	case CharActionType::AWAIT:
+		m_sprite.setPosition(startPosition);
 		break;
 	case CharActionType::MOVING_IN:
-		m_sprite.setPosition(getStartPoint());
+		m_sprite.setPosition(getStartPosition());
 		m_sprite.setColor(Color(255, 255, 255, 0));
 		setCurrentAlpha((float)m_sprite.getColor().a);
 		setColorChangingStep({0.f, 0.f, 0.f, 255 / (getDuration() * 60)});
 		break;
 	case CharActionType::MOVING_THROUGH:
-		m_sprite.setPosition(getStartPoint());
-		setMovingStep(Vector2f((getEndPoint().x - getStartPoint().x) / (getDuration() * 60), (getEndPoint().y - getStartPoint().y) / (getDuration() * 60)));
+		m_sprite.setPosition(getStartPosition());
+		setMovingStep(Vector2f((getEndPosition().x - getStartPosition().x) / (getDuration() * 60), (getEndPosition().y - getStartPosition().y) / (getDuration() * 60)));
 		break;
 	case CharActionType::MOVING_OUT:
-		m_sprite.setPosition(getStartPoint());
+		m_sprite.setPosition(getStartPosition());
 		setCurrentAlpha((float)m_sprite.getColor().a);
 		m_sprite.setColor(Color(255, 255, 255, 255));
 		setColorChangingStep({0.f, 0.f, 0.f, 255 / (getDuration() * 60)});
@@ -45,10 +46,12 @@ Sprite CharacterAction::getSprite()
 	return m_sprite;
 }
 
-void CharacterAction::execute(Clock clock)
+void CharacterAction::execute(Clock clock, Time time)
 {
 	if (!getState())
 	{
+		time = clock.getElapsedTime();
+
 		switch (m_actionType)
 		{
 			case CharActionType::NONE:
@@ -57,12 +60,21 @@ void CharacterAction::execute(Clock clock)
 			}
 			case CharActionType::AWAIT:
 			{
+				if (time.asSeconds() < getDuration())
+				{
+
+				}
+				else
+				{
+					setState(true);
+				}
+
 				break;
 			}
 
 			case CharActionType::MOVING_IN:
 			{
-				if (m_sprite.getColor().a < 255)
+				if (m_sprite.getColor().a < 255 && time.asSeconds() < getDuration())
 				{
 					setCurrentAlpha(getCurrentAlpha() + std::get<3>(getColorChangingStep()));
 					m_sprite.setColor(Color(255, 255, 255, getCurrentAlpha()));
@@ -77,7 +89,7 @@ void CharacterAction::execute(Clock clock)
 
 			case CharActionType::MOVING_OUT:
 			{
-				if (m_sprite.getColor().a > 0)
+				if (m_sprite.getColor().a > 0 && time.asSeconds() < getDuration())
 				{
 					setCurrentAlpha(getCurrentAlpha() - std::get<3>(getColorChangingStep()));
 					m_sprite.setColor(Color(255, 255, 255, getCurrentAlpha()));
@@ -93,14 +105,15 @@ void CharacterAction::execute(Clock clock)
 
 			case CharActionType::MOVING_THROUGH:
 			{
-				if ((getMovingStep().x > 0 && getMovingStep().x > (m_sprite.getPosition().x - getEndPoint().x)) ||
-					(getMovingStep().x < 0 && getMovingStep().x < (m_sprite.getPosition().x + getEndPoint().x)))
+				if (((getMovingStep().x > 0 && getMovingStep().x > (m_sprite.getPosition().x - getEndPosition().x)) ||
+					(getMovingStep().x < 0 && getMovingStep().x < (m_sprite.getPosition().x + getEndPosition().x))) &&
+					time.asSeconds() < getDuration())
 				{
 					m_sprite.setPosition(Vector2f(m_sprite.getPosition().x + getMovingStep().x, m_sprite.getPosition().y + getMovingStep().y));
 				}
 				else
 				{
-					m_sprite.setPosition(getEndPoint());
+					m_sprite.setPosition(getEndPosition());
 					setState(true);
 				}
 				break;

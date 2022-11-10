@@ -72,27 +72,18 @@ Sprite BaseAction::getSprite()
 	exit(1);
 }
 
-Vector2f BaseAction::getStartPoint()
+Vector2f BaseAction::getStartPosition()
 {
 	return m_movingStartPoint;
 }
 
-Vector2f BaseAction::getEndPoint()
+Vector2f BaseAction::getEndPosition()
 {
 	return m_movingEndPoint;
 }
 
-void BaseAction::execute(sf::Clock clock)
+void BaseAction::execute(sf::Clock clock, Time time)
 {
-	if (typeid(decltype(clock)).name() == "class BaseAction")
-	{
-		std::cout << "+" << std::endl;
-	}
-	else
-	{
-		std::cout << "-" << std::endl;
-	}
-
 	throw __uncaught_exception;
 	exit(1);
 }

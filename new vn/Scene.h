@@ -11,6 +11,8 @@ private:
 	sf::Sprite m_userInterface = sf::Sprite();
 	std::vector<sf::Sprite> m_characters = std::vector<sf::Sprite>();
 
+	bool m_isAutoSkip = false;
+
 	std::vector<std::shared_ptr<BaseAction>> m_actions = std::vector<std::shared_ptr<BaseAction>>();
 
 public:

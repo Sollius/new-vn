@@ -31,10 +31,11 @@ void Scene::display(RenderWindow& window, Clock clock)
 {
 	Event event;
 	Time time = clock.restart();
-	int finishedActionsCount = 0;
-	while (true)
-	{
 
+	bool isSkipped = false;
+
+	while (!m_actions.empty())
+	{
 		while (window.pollEvent(event))
 		{
 			switch (event.type)
@@ -45,22 +46,30 @@ void Scene::display(RenderWindow& window, Clock clock)
 			case sf::Event::KeyPressed:
 				switch (event.key.code)
 				{
-				case sf::Keyboard::Escape:
-					return;
-					break;
+					case sf::Keyboard::Escape:
+					{
+						if (!isSkipped)
+						{
+							isSkipped = true;
+						}
+						else
+						{
+							return;
+							break;
+						}
+					}
 				}
 			}
 		}
 
-		////m_characters.clear();
+		m_characters.clear();
+		int finishedActionsCount = 0;
 	
 		for (auto& action : m_actions)
 		{
 			ActionExecutor& actionExecutor = *action;
 
-			window.clear(Color::Black);
-
-			actionExecutor.execute(clock);
+			actionExecutor.execute(clock, time);
 
 			if (action.get()->getActionType() == ActionType::BACKGROUND)
 			{
@@ -75,7 +84,27 @@ void Scene::display(RenderWindow& window, Clock clock)
 			{
 				finishedActionsCount++;
 			}
+
+			if (isSkipped)
+			{
+				time = seconds(3600);
+				while (!action.get()->getState())
+				{
+					actionExecutor.execute(clock, time);
+				}
+
+				if (action.get()->getActionType() == ActionType::BACKGROUND)
+				{
+					setBackground(actionExecutor.getSprite());
+				}
+				else
+				{
+					m_characters.push_back(actionExecutor.getSprite());
+				}
+			}
 		}
+
+		window.clear(Color::Black);
 
 		window.draw(m_background);
 
@@ -86,9 +115,10 @@ void Scene::display(RenderWindow& window, Clock clock)
 
 		window.display();
 
-		if (finishedActionsCount == m_actions.size())
+		if (finishedActionsCount == m_actions.size() && isSkipped)
 		{
 			m_actions.clear();
+
 			return;
 		}
 	}

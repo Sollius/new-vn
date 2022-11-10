@@ -20,11 +20,11 @@ public:
 		CharActionType bgActionType,
 		sf::Sprite sprite,
 		float actionDuration,
-		Vector2f movingStartPoint,
-		Vector2f movingEndPoint
+		Vector2f startPosition,
+		Vector2f endPosition
 	);
 
 	Sprite getSprite();
 
-	virtual void execute(Clock clock);
+	virtual void execute(Clock clock, Time time);
 };
