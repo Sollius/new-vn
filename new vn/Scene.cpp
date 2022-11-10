@@ -33,8 +33,11 @@ void Scene::display(RenderWindow& window, Clock clock)
 	Time time = clock.restart();
 
 	bool isSkipped = false;
+	bool nextScene = false;
 
-	while (!m_actions.empty())
+	m_state = SceneState::ANIMATION;
+
+	while (m_state != SceneState::NONE)
 	{
 		while (window.pollEvent(event))
 		{
@@ -48,9 +51,16 @@ void Scene::display(RenderWindow& window, Clock clock)
 				{
 					case sf::Keyboard::Escape:
 					{
-						if (!isSkipped)
+						if (!m_isAutoSkip)
 						{
-							isSkipped = true;
+							if (m_state == SceneState::ANIMATION)
+							{
+								m_state = SceneState::AWAIT;
+							}
+							else
+							{
+								m_state = SceneState::NONE;
+							}
 						}
 						else
 						{
@@ -69,7 +79,23 @@ void Scene::display(RenderWindow& window, Clock clock)
 		{
 			ActionExecutor& actionExecutor = *action;
 
-			actionExecutor.execute(clock, time);
+			switch (m_state)
+			{
+				case SceneState::NONE:
+				{
+					break;
+				}
+				case SceneState::ANIMATION:
+				{
+					actionExecutor.execute(clock, time);
+					break;
+				}
+				case SceneState::AWAIT:
+				{
+					action.get()->setSkipped();
+					break;
+				}
+			}
 
 			if (action.get()->getActionType() == ActionType::BACKGROUND)
 			{
@@ -84,24 +110,6 @@ void Scene::display(RenderWindow& window, Clock clock)
 			{
 				finishedActionsCount++;
 			}
-
-			if (isSkipped)
-			{
-				time = seconds(3600);
-				while (!action.get()->getState())
-				{
-					actionExecutor.execute(clock, time);
-				}
-
-				if (action.get()->getActionType() == ActionType::BACKGROUND)
-				{
-					setBackground(actionExecutor.getSprite());
-				}
-				else
-				{
-					m_characters.push_back(actionExecutor.getSprite());
-				}
-			}
 		}
 
 		window.clear(Color::Black);
@@ -115,11 +123,16 @@ void Scene::display(RenderWindow& window, Clock clock)
 
 		window.display();
 
-		if (finishedActionsCount == m_actions.size() && isSkipped)
+		if (finishedActionsCount == m_actions.size())
 		{
-			m_actions.clear();
+			if (m_state == SceneState::NONE)
+			{
+				m_actions.clear();
 
-			return;
+				return;
+			}
+
+			m_state = SceneState::AWAIT;
 		}
 	}
 }

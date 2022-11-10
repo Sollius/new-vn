@@ -126,3 +126,35 @@ void CharacterAction::execute(Clock clock, Time time)
 		}
 	}
 }
+
+void CharacterAction::setSkipped()
+{
+	switch (m_actionType)
+	{
+		case CharActionType::NONE:
+		{
+			break;
+		}
+		case CharActionType::AWAIT:
+		{
+			break;
+		}
+		case CharActionType::MOVING_IN:
+		{
+			m_sprite.setColor(Color(255, 255, 255, 255));
+			break;
+		}
+		case CharActionType::MOVING_OUT:
+		{
+			m_sprite.setColor(Color(255, 255, 255, 0));
+			break;
+		}
+		case CharActionType::MOVING_THROUGH:
+		{
+			m_sprite.setPosition(getEndPosition());
+			break;
+		}
+	}
+
+	setState(true);
+}

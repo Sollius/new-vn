@@ -116,3 +116,35 @@ void BackgroundAction::execute(sf::Clock clock, Time time)
 
 	return;
 }
+
+void BackgroundAction::setSkipped()
+{
+	switch (m_actionType)
+	{
+		case BgActionType::NONE:
+		{
+			break;
+		}
+		case BgActionType::AWAIT:
+		{
+			break;
+		}
+		case BgActionType::MOVING_IN:
+		{
+			m_sprite.setColor(Color(255, 255, 255, 255));
+			break;
+		}
+		case BgActionType::MOVING_OUT:
+		{
+			m_sprite.setColor(Color(255, 255, 255, 0));
+			break;
+		}
+		case BgActionType::MOVING_THROUGH:
+		{
+			m_sprite.setPosition(getEndPosition());
+			break;
+		}
+	}
+
+	setState(true);
+}

@@ -2,10 +2,13 @@
 
 #include "MainHeader.h"
 #include "BaseAction.h"
+#include "SceneState.h"
 
 class Scene
 {
 private:
+	SceneState m_state = SceneState::NONE;
+
 	sf::Sprite m_background = sf::Sprite();
 	bool m_isShowInterface = false;
 	sf::Sprite m_userInterface = sf::Sprite();

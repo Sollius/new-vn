@@ -155,6 +155,9 @@
     <ClInclude Include="PlayingInterface.h">
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="SceneState.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="calibri.ttf">

@@ -51,4 +51,6 @@ public:
 	Vector2f getEndPosition();
 
 	virtual void execute(sf::Clock clock, Time time);
+
+	virtual void setSkipped();
 };

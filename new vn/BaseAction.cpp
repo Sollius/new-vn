@@ -87,3 +87,8 @@ void BaseAction::execute(sf::Clock clock, Time time)
 	throw __uncaught_exception;
 	exit(1);
 }
+
+void BaseAction::setSkipped()
+{
+	
+}

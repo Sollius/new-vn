@@ -30,4 +30,6 @@ public:
 	sf::Sprite getSprite();
 
 	virtual void execute(sf::Clock clock, Time time);
+
+	virtual void setSkipped();
 };

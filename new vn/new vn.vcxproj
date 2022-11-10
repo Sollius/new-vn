@@ -226,6 +226,7 @@
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="PlayingInterface.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneState.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="calibri.ttf" />

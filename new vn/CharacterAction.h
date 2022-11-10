@@ -27,4 +27,6 @@ public:
 	Sprite getSprite();
 
 	virtual void execute(Clock clock, Time time);
+
+	virtual void setSkipped();
 };
