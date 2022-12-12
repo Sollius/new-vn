@@ -21,13 +21,13 @@ int main()
 
 	if (debug)
 	{
-		windowSize = Vector2i(1920, 1080);
+		windowSize = Vector2i(1280, 720);
 		windowStyle = Style::Default;
 	}
 	else
 	{
 		windowSize = Vector2i(1920, 1080);
-		windowStyle = Style::Default;
+		windowStyle = Style::Fullscreen;
 	}
 
 	DebugConsole debugConsole

@@ -105,6 +105,9 @@
     <ClCompile Include="PlayingInterface.cpp">
       <Filter>Source Files\Interface</Filter>
     </ClCompile>
+    <ClCompile Include="TextAction.cpp">
+      <Filter>Source Files\Game\Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainHeader.h">
@@ -156,6 +159,12 @@
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
     <ClInclude Include="SceneState.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="TextAction.h">
+      <Filter>Header Files\Game\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="TextActionType.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>

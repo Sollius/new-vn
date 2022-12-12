@@ -64,6 +64,9 @@ void Scene::display(RenderWindow& window, Clock clock)
 						}
 						else
 						{
+							m_actions.clear();
+							m_texts.clear();
+
 							return;
 							break;
 						}
@@ -87,7 +90,19 @@ void Scene::display(RenderWindow& window, Clock clock)
 				}
 				case SceneState::ANIMATION:
 				{
-					actionExecutor.execute(clock, time);
+					if (action.get()->getActionType() == ActionType::BACKGROUND ||
+						action.get()->getActionType() == ActionType::CHARACTER)
+					{
+						actionExecutor.execute(clock, time);
+					}
+					break;
+				}
+				case SceneState::TEXT_DISPLAYING:
+				{
+					if (action.get()->getActionType() == ActionType::TEXT)
+					{
+						actionExecutor.execute(clock, time);
+					}
 					break;
 				}
 				case SceneState::AWAIT:
@@ -97,13 +112,29 @@ void Scene::display(RenderWindow& window, Clock clock)
 				}
 			}
 
-			if (action.get()->getActionType() == ActionType::BACKGROUND)
+			switch (action.get()->getActionType())
 			{
-				setBackground(actionExecutor.getSprite());
-			}
-			else
-			{
-				m_characters.push_back(actionExecutor.getSprite());
+				case ActionType::NONE:
+				{
+					throw __uncaught_exception;
+					exit(1);
+					break;
+				}
+				case ActionType::BACKGROUND:
+				{
+					setBackground(actionExecutor.getSprite());
+					break;
+				}
+				case ActionType::CHARACTER:
+				{
+					m_characters.push_back(actionExecutor.getSprite());
+					break;
+				}
+				case ActionType::TEXT:
+				{
+					m_texts.push_back(actionExecutor.getText());
+					break;
+				}
 			}
 
 			if (action.get()->getState())
@@ -121,6 +152,16 @@ void Scene::display(RenderWindow& window, Clock clock)
 			window.draw(character);
 		}
 
+		if (m_isShowInterface)
+		{
+			window.draw(m_userInterface);
+
+			for (auto& text : m_texts)
+			{
+				window.draw(text);
+			}
+		}
+
 		window.display();
 
 		if (finishedActionsCount == m_actions.size())
@@ -128,6 +169,7 @@ void Scene::display(RenderWindow& window, Clock clock)
 			if (m_state == SceneState::NONE)
 			{
 				m_actions.clear();
+				m_texts.clear();
 
 				return;
 			}
@@ -147,7 +189,22 @@ void Scene::setBackground(Sprite sprite)
 	m_background = sprite;
 }
 
+void Scene::setUserInterface(sf::RectangleShape userInterface)
+{
+	m_userInterface = userInterface;
+}
+
 Sprite Scene::getBackground()
 {
 	return m_background;
+}
+
+RectangleShape Scene::getUserInterface()
+{
+	return m_userInterface;
+}
+
+RectangleShape& Scene::getUserInterfaceForChanging()
+{
+	return m_userInterface;
 }

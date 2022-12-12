@@ -22,6 +22,20 @@ public:
 
 	BaseAction(int orderNumber, ActionType actionType, float actionDuration, Vector2f movingStartPoint, Vector2f movingEndPoint);
 
+	BaseAction(int orderNumber, ActionType actionType, float actionDuration, Vector2f movingStartPoint);
+
+	BaseAction(int orderNumber, ActionType actionType, float actionDuration);
+
+	virtual Sprite getSprite();
+
+	virtual Text getText();
+
+	virtual void execute(sf::Clock clock, Time time);
+
+	virtual bool getState();
+
+	virtual void setSkipped();
+
 	void setState(bool state);
 
 	void setCurrentAlpha(float currentAlpha);
@@ -36,21 +50,13 @@ public:
 
 	float getDuration();
 
-	virtual bool getState();
-
 	float getCurrentAlpha();
 
 	std::tuple<float, float, float, float> getColorChangingStep();
 
 	Vector2f getMovingStep();
 
-	virtual Sprite getSprite();
-
 	Vector2f getStartPosition();
 
 	Vector2f getEndPosition();
-
-	virtual void execute(sf::Clock clock, Time time);
-
-	virtual void setSkipped();
 };

@@ -12,5 +12,7 @@ public:
 	virtual bool getState();
 
 	virtual Sprite getSprite();
+
+	virtual Text getText();
 };
 

@@ -205,6 +205,7 @@
     <ClCompile Include="MenuStringFunction.h" />
     <ClCompile Include="PlayingInterface.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="TextAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionExecutor.h" />
@@ -227,6 +228,8 @@
     <ClInclude Include="PlayingInterface.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneState.h" />
+    <ClInclude Include="TextAction.h" />
+    <ClInclude Include="TextActionType.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="calibri.ttf" />

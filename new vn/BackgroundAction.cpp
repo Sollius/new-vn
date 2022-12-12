@@ -13,9 +13,9 @@ BackgroundAction::BackgroundAction(
 		BaseAction(orderNumber, actionType, actionDuration, movingStartPoint, movingEndPoint)
 {
 	m_sprite = sprite;
-	m_actionType = bgActionType;
+	m_bgActionType = bgActionType;
 
-	switch (m_actionType)
+	switch (m_bgActionType)
 	{
 	case BgActionType::NONE:
 		break;
@@ -54,7 +54,7 @@ void BackgroundAction::execute(sf::Clock clock, Time time)
 {
 	if (!getState())
 	{
-		switch (m_actionType)
+		switch (m_bgActionType)
 		{
 			case BgActionType::NONE:
 			{
@@ -119,7 +119,7 @@ void BackgroundAction::execute(sf::Clock clock, Time time)
 
 void BackgroundAction::setSkipped()
 {
-	switch (m_actionType)
+	switch (m_bgActionType)
 	{
 		case BgActionType::NONE:
 		{

@@ -9,7 +9,7 @@
 class BackgroundAction : public BaseAction
 {
 private:
-	BgActionType m_actionType = BgActionType::NONE;
+	BgActionType m_bgActionType = BgActionType::NONE;
 	sf::Sprite m_sprite = sf::Sprite();
 
 public:

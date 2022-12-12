@@ -11,6 +11,22 @@ BaseAction::BaseAction(int orderNumber, ActionType actionType, float actionDurat
 	m_movingEndPoint = movingEndPoint;
 }
 
+BaseAction::BaseAction(int orderNumber, ActionType actionType, float actionDuration, Vector2f movingStartPoint)
+{
+	m_orderNumber = orderNumber;
+	m_actionType = actionType;
+	m_actionDurationInS = actionDuration;
+	m_movingStartPoint = movingStartPoint;
+	m_movingEndPoint = movingStartPoint;
+}
+
+BaseAction::BaseAction(int orderNumber, ActionType actionType, float actionDuration)
+{
+	m_orderNumber = orderNumber;
+	m_actionType = actionType;
+	m_actionDurationInS = actionDuration;
+}
+
 void BaseAction::setState(bool state)
 {
 	m_isActionOver = state;
@@ -67,6 +83,12 @@ Vector2f BaseAction::getMovingStep()
 }
 
 Sprite BaseAction::getSprite()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+Text BaseAction::getText()
 {
 	throw __uncaught_exception;
 	exit(1);

@@ -9,14 +9,16 @@ class Scene
 private:
 	SceneState m_state = SceneState::NONE;
 
-	sf::Sprite m_background = sf::Sprite();
-	bool m_isShowInterface = false;
-	sf::Sprite m_userInterface = sf::Sprite();
-	std::vector<sf::Sprite> m_characters = std::vector<sf::Sprite>();
+	sf::RectangleShape m_userInterface = sf::RectangleShape();
 
+	bool m_isShowInterface = true;
 	bool m_isAutoSkip = false;
 
+	sf::Sprite m_background = sf::Sprite();
+	std::vector<sf::Sprite> m_characters = std::vector<sf::Sprite>();
+	std::vector<sf::Text> m_texts = std::vector<sf::Text>();
 	std::vector<std::shared_ptr<BaseAction>> m_actions = std::vector<std::shared_ptr<BaseAction>>();
+
 
 public:
 	Scene();
@@ -34,6 +36,12 @@ public:
 
 	void setBackground(Sprite sprite);
 
+	void setUserInterface(sf::RectangleShape userInterface);
+
 	Sprite getBackground();
+
+	RectangleShape getUserInterface();
+
+	RectangleShape& getUserInterfaceForChanging();
 };
 

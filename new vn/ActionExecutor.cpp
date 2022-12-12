@@ -19,3 +19,9 @@ Sprite ActionExecutor::getSprite()
 	throw __uncaught_exception;
 	exit(1);
 }
+
+Text ActionExecutor::getText()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
