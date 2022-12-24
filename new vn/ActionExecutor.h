@@ -1,6 +1,9 @@
 #pragma once
 
 #include "MainHeader.h"
+#include "BgActionType.h"
+#include "CharActionType.h"
+#include "TextActionType.h"
 
 class ActionExecutor
 {
@@ -14,5 +17,11 @@ public:
 	virtual Sprite getSprite();
 
 	virtual Text getText();
+
+	virtual TextActionType getTextActionType();
+
+	virtual BgActionType getBgActionType();
+
+	virtual CharActionType getCharActionType();
 };
 

@@ -23,5 +23,7 @@ public:
 
 	sf::Text getText();
 
+	TextActionType getTextActionType();
+
 	void setSkipped();
 };

@@ -1,4 +1,5 @@
 #include "ActionExecutor.h"
+#include "TextActionType.h"
 
 ActionExecutor::ActionExecutor() {}
 
@@ -21,6 +22,24 @@ Sprite ActionExecutor::getSprite()
 }
 
 Text ActionExecutor::getText()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+TextActionType ActionExecutor::getTextActionType()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+BgActionType ActionExecutor::getBgActionType()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+CharActionType ActionExecutor::getCharActionType()
 {
 	throw __uncaught_exception;
 	exit(1);

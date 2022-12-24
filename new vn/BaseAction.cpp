@@ -115,3 +115,21 @@ void BaseAction::setSkipped()
 	throw __uncaught_exception;
 	exit(1);
 }
+
+TextActionType BaseAction::getTextActionType()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+BgActionType BaseAction::getBgActionType()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+CharActionType BaseAction::getCharActionType()
+{
+	throw __uncaught_exception;
+	exit(1);
+}

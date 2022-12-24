@@ -11,7 +11,7 @@ private:
 
 	sf::RectangleShape m_userInterface = sf::RectangleShape();
 
-	bool m_isShowInterface = true;
+	bool m_isShowInterface = false;
 	bool m_isAutoSkip = false;
 
 	sf::Sprite m_background = sf::Sprite();

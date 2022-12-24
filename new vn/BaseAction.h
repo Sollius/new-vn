@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "ActionExecutor.h"
+#include "TextActionType.h"
 
 class BaseAction : public ActionExecutor
 {
@@ -35,6 +36,12 @@ public:
 	virtual bool getState();
 
 	virtual void setSkipped();
+
+	virtual TextActionType getTextActionType();
+
+	virtual BgActionType getBgActionType();
+
+	virtual CharActionType getCharActionType();
 
 	void setState(bool state);
 

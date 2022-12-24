@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "TextActionType.h"
 
 Scene::Scene() {};
 
@@ -33,6 +34,8 @@ void Scene::display(RenderWindow& window, Clock clock)
 	Time time = clock.restart();
 
 	m_state = SceneState::ANIMATION;
+
+	m_isShowInterface = false;
 
 	while (m_state != SceneState::NONE)
 	{
@@ -87,18 +90,18 @@ void Scene::display(RenderWindow& window, Clock clock)
 				}
 				case SceneState::ANIMATION:
 				{
-					if (action.get()->getActionType() == ActionType::BACKGROUND ||
-						action.get()->getActionType() == ActionType::CHARACTER)
-						{
-							actionExecutor.execute(clock, time);
-						}
+					actionExecutor.execute(clock, time);
+					if (action.get()->getActionType() == ActionType::TEXT)
+					{
+						m_isShowInterface = true;
+					}
+
 					break;
 				}
 				case SceneState::TEXT_DISPLAYING:
 				{
 					if (action.get()->getActionType() == ActionType::TEXT)
 					{
-						actionExecutor.execute(clock, time);
 					}
 					break;
 				}
@@ -129,6 +132,10 @@ void Scene::display(RenderWindow& window, Clock clock)
 				}
 				case ActionType::TEXT:
 				{
+					if (actionExecutor.getTextActionType() == TextActionType::MOVING_OUT)
+					{
+						m_isShowInterface = false;
+					}
 					m_texts.push_back(actionExecutor.getText());
 					break;
 				}

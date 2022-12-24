@@ -48,6 +48,11 @@ sf::Text TextAction::getText()
 	return m_text;
 }
 
+TextActionType TextAction::getTextActionType()
+{
+	return m_textActionType;
+}
+
 void TextAction::setSkipped()
 {
 	switch (m_textActionType)
