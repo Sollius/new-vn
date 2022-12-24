@@ -59,7 +59,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 	{
 		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::AWAIT, charSprite, 5.f, charPosition, charPosition)),
-		std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::MOVING_IN, sf::Text(sf::String(L"Ты кто такой, сука?"), defaultFont, 20), scene.getUserInterface())),
+		std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::MOVING_IN, sf::Text(sf::String(L"Ты кто такой, сука?"), defaultFont, 20), scene.getUserInterface().getPosition())),
 	});
 	scene.display(window, clock);
 

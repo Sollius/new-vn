@@ -107,10 +107,11 @@ Vector2f BaseAction::getEndPosition()
 void BaseAction::execute(sf::Clock clock, Time time)
 {
 	throw __uncaught_exception;
-	exit(1);
+	exit(1); 
 }
 
 void BaseAction::setSkipped()
 {
-	
+	throw __uncaught_exception;
+	exit(1);
 }

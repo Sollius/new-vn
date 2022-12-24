@@ -5,11 +5,11 @@ TextAction::TextAction() {}
 
 TextAction::~TextAction() {}
 
-TextAction::TextAction(int orderNumber, ActionType actionType, float actionDuration, TextActionType textActionType, sf::Text text, RectangleShape uiRectangle) : BaseAction(orderNumber, actionType, actionDuration)
+TextAction::TextAction(int orderNumber, ActionType actionType, float actionDuration, TextActionType textActionType, sf::Text text, Vector2f uiPosition) : BaseAction(orderNumber, actionType, actionDuration)
 {
 	m_textActionType = textActionType;
 	m_text = text;
-	m_text.setPosition(Vector2f(uiRectangle.getPosition().x + 20, uiRectangle.getPosition().y + 20));
+	m_text.setPosition(Vector2f(uiPosition.x + 20, uiPosition.y + 20));
 }
 
 void TextAction::execute(sf::Clock clock, sf::Time time)
@@ -46,4 +46,29 @@ void TextAction::execute(sf::Clock clock, sf::Time time)
 sf::Text TextAction::getText()
 {
 	return m_text;
+}
+
+void TextAction::setSkipped()
+{
+	switch (m_textActionType)
+	{
+		case TextActionType::NONE:
+		{
+			break;
+		}
+		case TextActionType::AWAIT:
+		{
+			break;
+		}
+		case TextActionType::MOVING_IN:
+		{
+			break;
+		}
+		case TextActionType::MOVING_OUT:
+		{
+			break;
+		}
+	}
+
+	setState(true);
 }

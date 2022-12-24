@@ -17,10 +17,11 @@ public:
 
 	~TextAction();
 
-	TextAction(int orderNumber, ActionType actionType, float actionDuration, TextActionType textActionType, sf::Text text, RectangleShape uiRectangle);
+	TextAction(int orderNumber, ActionType actionType, float actionDuration, TextActionType textActionType, sf::Text text, Vector2f uiPosition);
 
 	void execute(sf::Clock clock, sf::Time time);
 
 	sf::Text getText();
-};
 
+	void setSkipped();
+};

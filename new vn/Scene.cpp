@@ -32,9 +32,6 @@ void Scene::display(RenderWindow& window, Clock clock)
 	Event event;
 	Time time = clock.restart();
 
-	bool isSkipped = false;
-	bool nextScene = false;
-
 	m_state = SceneState::ANIMATION;
 
 	while (m_state != SceneState::NONE)
@@ -92,9 +89,9 @@ void Scene::display(RenderWindow& window, Clock clock)
 				{
 					if (action.get()->getActionType() == ActionType::BACKGROUND ||
 						action.get()->getActionType() == ActionType::CHARACTER)
-					{
-						actionExecutor.execute(clock, time);
-					}
+						{
+							actionExecutor.execute(clock, time);
+						}
 					break;
 				}
 				case SceneState::TEXT_DISPLAYING:

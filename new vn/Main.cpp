@@ -11,7 +11,7 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 
-	bool debug = false;
+	bool debug = true;
 
 	Font defaultFont;
 	defaultFont.loadFromFile("calibri.ttf");
