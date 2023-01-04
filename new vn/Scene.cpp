@@ -2,6 +2,7 @@
 #include "TextActionType.h"
 
 Scene::Scene() {};
+Scene::~Scene() {}
 
 Scene::Scene(Sprite background, std::vector<Sprite> characters) 
 {
@@ -9,7 +10,10 @@ Scene::Scene(Sprite background, std::vector<Sprite> characters)
 	m_characters = characters;
 };
 
-Scene::~Scene() {};
+Scene::Scene(Player& player)
+{
+	m_player = player;
+};
 
 void Scene::setActions(std::vector<std::shared_ptr<BaseAction>> actions)
 {
@@ -28,7 +32,12 @@ bool Scene::isActionsOver()
 	}
 }
 
-void Scene::display(RenderWindow& window, Clock clock)
+void Scene::setPlayer(Player& player)
+{
+	m_player = player;
+}
+
+Player Scene::display(RenderWindow& window, Clock clock)
 {
 	Event event;
 	Time time = clock.restart();
@@ -43,32 +52,65 @@ void Scene::display(RenderWindow& window, Clock clock)
 		{
 			switch (event.type)
 			{
-			case sf::Event::Closed:
-				window.close();
-				break;
-			case sf::Event::KeyPressed:
-				switch (event.key.code)
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::KeyPressed:
 				{
-					case sf::Keyboard::Escape:
+					switch (event.key.code)
 					{
-						if (!m_isAutoSkip)
+						case sf::Keyboard::Escape:
 						{
-							if (m_state == SceneState::ANIMATION)
+							if (!m_isAutoSkip)
 							{
-								m_state = SceneState::AWAIT;
+								if (m_state == SceneState::ANIMATION)
+								{
+									m_state = SceneState::AWAIT;
+								}
+								else
+								{
+									m_state = SceneState::NONE;
+								}
 							}
 							else
 							{
-								m_state = SceneState::NONE;
+								m_actions.clear();
+								m_texts.clear();
+
+								return m_player;
+								break;
 							}
 						}
-						else
+					}
+
+					break;
+				}
+				case sf::Event::MouseMoved:
+				{
+					for (auto& action : m_actions)
+					{
+						if (action.get()->getActionType() == ActionType::OPTION)
 						{
+							action.get()->setHovered(Vector2f(Mouse::getPosition(window)));
+						}
+					}
+
+					break;
+				}
+				case sf::Event::MouseButtonPressed:
+				{
+					for (auto& action : m_actions)
+					{
+						if (action.get()->getActionType() == ActionType::OPTION)
+						{
+							m_player.addFlag({ action.get()->getSelectionName(), action.get()->getSelectedOptionNumber(Vector2f(Mouse::getPosition(window))) });
+
 							m_actions.clear();
 							m_texts.clear();
+							m_buttons.clear();
 
-							return;
-							break;
+							return m_player;
+						    break;
 						}
 					}
 				}
@@ -91,7 +133,7 @@ void Scene::display(RenderWindow& window, Clock clock)
 				case SceneState::ANIMATION:
 				{
 					actionExecutor.execute(clock, time);
-					if (action.get()->getActionType() == ActionType::TEXT)
+					if (action.get()->getActionType() == ActionType::TEXT || action.get()->getActionType() == ActionType::OPTION)
 					{
 						m_isShowInterface = true;
 					}
@@ -103,6 +145,11 @@ void Scene::display(RenderWindow& window, Clock clock)
 					if (action.get()->getActionType() == ActionType::TEXT)
 					{
 					}
+					
+					if (action.get()->getActionType() == ActionType::OPTION)
+					{
+					}
+
 					break;
 				}
 				case SceneState::AWAIT:
@@ -139,6 +186,20 @@ void Scene::display(RenderWindow& window, Clock clock)
 					m_texts.push_back(actionExecutor.getText());
 					break;
 				}
+				case ActionType::OPTION:
+				{
+					for (auto& button : actionExecutor.getButtons())
+					{
+						m_buttons.push_back(std::get<0>(button));
+						m_texts.push_back(std::get<1>(button));
+					}
+					break;
+				}
+				default:
+				{
+					throw __uncaught_exception;
+					exit(1);
+				}
 			}
 
 			if (action.get()->getState())
@@ -160,6 +221,14 @@ void Scene::display(RenderWindow& window, Clock clock)
 		{
 			window.draw(m_userInterface);
 
+			if (!m_buttons.empty())
+			{
+				for (auto& button : m_buttons)
+				{
+					window.draw(button);
+				}
+			}
+
 			for (auto& text : m_texts)
 			{
 				window.draw(text);
@@ -174,8 +243,9 @@ void Scene::display(RenderWindow& window, Clock clock)
 			{
 				m_actions.clear();
 				m_texts.clear();
+				m_buttons.clear();
 
-				return;
+				return m_player;
 			}
 
 			m_state = SceneState::AWAIT;

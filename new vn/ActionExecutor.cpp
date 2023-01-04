@@ -44,3 +44,9 @@ CharActionType ActionExecutor::getCharActionType()
 	throw __uncaught_exception;
 	exit(1);
 }
+
+std::vector<std::tuple<sf::RectangleShape, sf::Text>> ActionExecutor::getButtons()
+{
+	throw __uncaught_exception;
+	exit(1);
+}

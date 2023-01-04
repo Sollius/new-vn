@@ -23,5 +23,7 @@ public:
 	virtual BgActionType getBgActionType();
 
 	virtual CharActionType getCharActionType();
+
+	virtual std::vector<std::tuple<sf::RectangleShape, sf::Text>> getButtons();
 };
 

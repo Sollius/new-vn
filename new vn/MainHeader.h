@@ -13,3 +13,4 @@
 
 #include "DebugConsole.h"
 #include "Loading.h"
+#include "Player.h"

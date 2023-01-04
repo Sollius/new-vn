@@ -5,5 +5,6 @@ enum class SceneState
 	NONE = 0,
 	ANIMATION = 1,
 	TEXT_DISPLAYING = 2,
-	AWAIT = 3,
+	ANSWER_AWAITING = 3,
+	AWAIT = 4,
 };

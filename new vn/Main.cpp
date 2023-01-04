@@ -4,6 +4,7 @@
 
 #include <math.h>
 #include <cmath>
+#include "Player.h"
 
 using namespace sf;
 
@@ -46,6 +47,10 @@ int main()
 	}
 	);
 
+	Player player;
+
+	player.readPlayerProgress();
+
 	RenderWindow window(VideoMode(windowSize.x, windowSize.y), "SFML App", windowStyle);
 	window.setFramerateLimit(60);
 
@@ -53,8 +58,8 @@ int main()
 
 	while (window.isOpen())
 	{
-		Menu(window, debugConsole, debug, clock);
-		Game(window, debugConsole, debug, clock);
+		Menu(window, debugConsole, debug, clock, player);
+		Game(window, debugConsole, debug, clock, player);
 	}
 
 	return 0;

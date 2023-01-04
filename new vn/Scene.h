@@ -15,22 +15,30 @@ private:
 	bool m_isAutoSkip = false;
 
 	sf::Sprite m_background = sf::Sprite();
+	std::vector<sf::RectangleShape> m_buttons = std::vector<sf::RectangleShape>();
 	std::vector<sf::Sprite> m_characters = std::vector<sf::Sprite>();
 	std::vector<sf::Text> m_texts = std::vector<sf::Text>();
+
 	std::vector<std::shared_ptr<BaseAction>> m_actions = std::vector<std::shared_ptr<BaseAction>>();
+
+	Player m_player = Player();
 
 
 public:
 	Scene();
 	~Scene();
 
+	Scene(Player& player);
+
 	Scene(Sprite background, std::vector<Sprite> characters);
 
 	bool isActionsOver();
 
+	void setPlayer(Player& player);
+
 	void setActions(std::vector<std::shared_ptr<BaseAction>> actions);
 
-	void display(RenderWindow& window, Clock clock);
+	Player display(RenderWindow& window, Clock clock);
 
 	void pushAction(Sprite sprite);
 

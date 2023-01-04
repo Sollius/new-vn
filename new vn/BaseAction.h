@@ -37,11 +37,21 @@ public:
 
 	virtual void setSkipped();
 
+	virtual void setHovered(Vector2f point);
+
+	virtual void setUnhovered(Vector2f point);
+
+	virtual int getSelectedOptionNumber(Vector2f point);
+
+	virtual std::string getSelectionName();
+
 	virtual TextActionType getTextActionType();
 
 	virtual BgActionType getBgActionType();
 
 	virtual CharActionType getCharActionType();
+
+	virtual std::vector<std::tuple<sf::RectangleShape, sf::Text>> getButtons();
 
 	void setState(bool state);
 

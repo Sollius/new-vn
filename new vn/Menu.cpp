@@ -1,9 +1,10 @@
 #include "Menu.h"
 #include "Game.h"
+#include "Player.h"
 
 
 
-int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock clock)
+int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock clock, Player& player)
 {
 	Loading loading(sf::Color(100, 100, 100, 150), sf::Color(50, 50, 50, 200), sf::Color(0, 150, 0, 200));
 	loading.showLoadingBarInCenter(window, Vector2f(200, 20), 4.f, clock);
@@ -102,7 +103,7 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 							window.close();
 							break;
 						case MenuStringFunction::NEW_GAME:
-							Game(window, debugConsole, debug, clock);
+							Game(window, debugConsole, debug, clock, player);
 							break;
 						case MenuStringFunction::LOAD_GAME:
 							break;

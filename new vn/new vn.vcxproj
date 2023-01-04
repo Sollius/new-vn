@@ -203,8 +203,10 @@
     <ClCompile Include="MenuBlock.cpp" />
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="MenuStringFunction.h" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayingInterface.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SelectionAction.cpp" />
     <ClCompile Include="TextAction.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -225,9 +227,11 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuBlock.h" />
     <ClInclude Include="MenuItem.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayingInterface.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneState.h" />
+    <ClInclude Include="SelectionAction.h" />
     <ClInclude Include="TextAction.h" />
     <ClInclude Include="TextActionType.h" />
   </ItemGroup>

@@ -116,6 +116,34 @@ void BaseAction::setSkipped()
 	exit(1);
 }
 
+void BaseAction::setHovered(Vector2f point)
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при преобразовании объекта (кнопки) в активный." << std::endl;
+	exit(1);
+}
+
+void BaseAction::setUnhovered(Vector2f point)
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при преобразовании объекта (кнопки) в неактивный." << std::endl;
+	exit(1);
+}
+
+int BaseAction::getSelectedOptionNumber(Vector2f point)
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при выборе варианта ответа." << std::endl;
+	exit(1);
+}
+
+std::string BaseAction::getSelectionName()
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате названия действия выбора." << std::endl;
+	exit(1);
+}
+
 TextActionType BaseAction::getTextActionType()
 {
 	throw __uncaught_exception;
@@ -129,6 +157,12 @@ BgActionType BaseAction::getBgActionType()
 }
 
 CharActionType BaseAction::getCharActionType()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+std::vector<std::tuple<sf::RectangleShape, sf::Text>> BaseAction::getButtons()
 {
 	throw __uncaught_exception;
 	exit(1);

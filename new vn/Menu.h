@@ -2,4 +2,4 @@
 
 
 
-int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock clock);
+int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock clock, Player& player);
