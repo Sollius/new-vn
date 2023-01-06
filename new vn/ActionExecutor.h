@@ -32,5 +32,7 @@ public:
 	virtual int getMusicId();
 
 	virtual std::string getMusicFileName();
+
+	virtual std::tuple<std::string, float, float, float> getMusicFileInfo();
 };
 

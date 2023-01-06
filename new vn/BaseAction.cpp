@@ -191,3 +191,9 @@ std::string BaseAction::getMusicFileName()
 	throw __uncaught_exception;
 	exit(1);
 }
+
+std::tuple<std::string, float, float, float> BaseAction::getMusicFileInfo()
+{
+	throw __uncaught_exception;
+	exit(1);
+}

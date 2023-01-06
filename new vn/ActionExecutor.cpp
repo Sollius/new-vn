@@ -63,6 +63,12 @@ std::string ActionExecutor::getMusicFileName()
 	exit(1);
 }
 
+std::tuple<std::string, float, float, float> ActionExecutor::getMusicFileInfo()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
 std::vector<std::tuple<sf::RectangleShape, sf::Text>> ActionExecutor::getButtons()
 {
 	throw __uncaught_exception;

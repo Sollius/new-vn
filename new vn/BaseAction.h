@@ -47,6 +47,8 @@ public:
 
 	virtual std::string getMusicFileName();
 
+	virtual std::tuple<std::string, float, float, float> getMusicFileInfo();
+
 	virtual bool getState();
 
 	virtual int getSelectedOptionNumber(Vector2f point);

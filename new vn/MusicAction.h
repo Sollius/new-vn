@@ -9,6 +9,8 @@ private:
 	std::string m_fileName = "";
 	MusicActionType m_musicActionType = MusicActionType::NONE;
 
+	float m_startTime = 0.f, m_loopStart = 0.f, m_loopEnd = 0.f;
+
 public:
 	MusicAction();
 	~MusicAction();
@@ -17,15 +19,17 @@ public:
 
 	MusicAction(int orderNumber, ActionType actionType, MusicActionType musicActionType, std::string musicFileName);
 
-	MusicAction(int orderNumber, ActionType actionType, MusicActionType musicActionType, std::string musicFileName, sf::Time loopBeginning, sf::Time loopEnd);
+	MusicAction(int orderNumber, ActionType actionType, MusicActionType musicActionType, std::string musicFileName, float loopBeginning, float loopEnd);
 
-	MusicAction(int orderNumber, ActionType actionType, MusicActionType musicActionType, std::string musicFileName, sf::Time startTime, sf::Time loopBeginning, sf::Time loopEnd);
+	MusicAction(int orderNumber, ActionType actionType, MusicActionType musicActionType, std::string musicFileName, float startTime, float loopBeginning, float loopEnd);
 
 	virtual int getMusicId();
 
 	MusicActionType getMusicActionType();
 
 	virtual std::string getMusicFileName();
+
+	std::tuple<std::string, float, float, float> getMusicFileInfo();
 
 	virtual void execute(sf::Clock clock, Time time);
 

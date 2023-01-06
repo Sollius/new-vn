@@ -37,6 +37,94 @@ void Scene::setPlayer(Player& player)
 	m_player = player;
 }
 
+void Scene::pushAction(Sprite sprite)
+{
+	m_characters.push_back(sprite);
+}
+
+void Scene::setBackground(Sprite sprite)
+{
+	m_background = sprite;
+}
+
+void Scene::setUserInterface(sf::RectangleShape userInterface)
+{
+	m_userInterface = userInterface;
+}
+
+Sprite Scene::getBackground()
+{
+	return m_background;
+}
+
+RectangleShape Scene::getUserInterface()
+{
+	return m_userInterface;
+}
+
+RectangleShape& Scene::getUserInterfaceForChanging()
+{
+	return m_userInterface;
+}
+
+Player& Scene::getPlayer()
+{
+	return m_player;
+}
+
+void Scene::setMusics(std::vector<std::string> musicsFileNames)
+{
+	for (auto& musicFileName : musicsFileNames)
+	{
+		sf::Music newMusic = sf::Music();
+		newMusic.openFromFile(musicFileName);
+		newMusic.setLoop(true);
+	}
+}
+
+std::vector<std::tuple<int, sf::Music&>> Scene::getMusics()
+{
+	return m_musics;
+}
+
+void Scene::addMusic(int id, std::string musicFileName, float startTimeInSecs = 0.f)
+{
+	//// TODO: возможно необходимо сделать возможность добавлять более одного трека в сцену
+	////m_musics.push_back(musicKeyValue);
+
+	sf::Music newMusic = sf::Music();
+	newMusic.openFromFile(musicFileName);
+	newMusic.setPlayingOffset(sf::seconds(startTimeInSecs));
+	newMusic.setLoop(true);
+
+	sf::Music& musicRef = newMusic;
+
+	m_musics.push_back({ id, musicRef });
+}
+
+void Scene::addMusicFile(std::string musicFileName)
+{
+	m_music.openFromFile(musicFileName);
+	m_music.setLoop(true);
+}
+
+void Scene::addMusicFileByInfo(std::tuple<std::string, float, float, float> musicFileInfo)
+{
+	m_music.openFromFile(std::get<0>(musicFileInfo));
+
+	if (std::get<3>(musicFileInfo) > 0.f)
+	{
+		m_music.setLoopPoints(sf::Music::TimeSpan(sf::seconds(std::get<2>(musicFileInfo)), sf::seconds(std::get<3>(musicFileInfo))));
+	}
+
+	m_music.setLoop(true);
+
+	if (std::get<1>(musicFileInfo) > 0.f)
+	{
+		m_music.setPlayingOffset(sf::seconds(std::get<1>(musicFileInfo)));
+	}
+}
+
 Player Scene::display(RenderWindow& window, Clock clock)
 {
 	Event event;
@@ -47,20 +135,20 @@ Player Scene::display(RenderWindow& window, Clock clock)
 	m_isShowInterface = false;
 	bool isMusicAdded = false, isMusicPlaying = false;
 
-	int musicActionsCount = 0;
+	////int musicActionsCount = 0;
 
-	for (auto& action : m_actions)
-	{
-		if (action.get()->getActionType() == ActionType::MUSIC && action.get()->getMusicActionType() == MusicActionType::PLAY)
-		{
-			musicActionsCount++;
-		}
-	}
+	////for (auto& action : m_actions)
+	////{
+	////	if (action.get()->getActionType() == ActionType::MUSIC && action.get()->getMusicActionType() == MusicActionType::PLAY)
+	////	{
+	////		musicActionsCount++;
+	////	}
+	////}
 
-	if (m_musics.size() < musicActionsCount)
-	{
-		m_isNeedToPlayMusic = true;
-	}
+	////if (m_musics.size() < musicActionsCount)
+	////{
+	////	m_isNeedToPlayMusic = true;
+	////}
 
 	while (m_state != SceneState::NONE)
 	{
@@ -140,6 +228,24 @@ Player Scene::display(RenderWindow& window, Clock clock)
 		{
 			ActionExecutor& actionExecutor = *action;
 
+			////////////////
+			//////////////// проверка на музыкальный тип только для музыкальный действий !!!!!!!!!!!!
+			////////////////
+			if (action.get()->getActionType() == ActionType::MUSIC && actionExecutor.getMusicActionType() == MusicActionType::PLAY)
+			{
+				////if (m_isNeedToPlayMusic)
+				////{
+				////	this->addMusic(actionExecutor.getMusicId(), actionExecutor.getMusicFileName(), 0);
+				////	m_isNeedToPlayMusic = false;
+				////}
+
+				if (!isMusicAdded)
+				{
+					addMusicFileByInfo(actionExecutor.getMusicFileInfo());
+					isMusicAdded = true;
+				}
+			}
+
 			switch (m_state)
 			{
 				case SceneState::NONE:
@@ -148,31 +254,11 @@ Player Scene::display(RenderWindow& window, Clock clock)
 				}
 				case SceneState::ANIMATION:
 				{
-					////////////////
-					//////////////// проверка на музыкальный тип только для музыкальный действий !!!!!!!!!!!!
-					////////////////
- 					if (action.get()->getActionType() == ActionType::MUSIC && actionExecutor.getMusicActionType() == MusicActionType::PLAY)
-					{
-						////if (m_isNeedToPlayMusic)
-						////{
-						////	this->addMusic(actionExecutor.getMusicId(), actionExecutor.getMusicFileName(), 0);
-						////	m_isNeedToPlayMusic = false;
-						////}
+					actionExecutor.execute(clock, time);
 
-						if (!isMusicAdded)
-						{
-							addMusicFile(actionExecutor.getMusicFileName());
-							isMusicAdded = true;
-						}
-					}
-					else
+					if (action.get()->getActionType() == ActionType::TEXT || action.get()->getActionType() == ActionType::OPTION && action.get()->getActionType() != ActionType::MUSIC)
 					{
-						actionExecutor.execute(clock, time);
-
-						if (action.get()->getActionType() == ActionType::TEXT || action.get()->getActionType() == ActionType::OPTION)
-						{
-							m_isShowInterface = true;
-						}
+						m_isShowInterface = true;
 					}
 
 					break;
@@ -230,7 +316,10 @@ Player Scene::display(RenderWindow& window, Clock clock)
 					{
 						m_buttons.push_back(std::get<0>(button));
 						m_texts.push_back(std::get<1>(button));
+
+						m_state = SceneState::ANSWER_AWAITING;
 					}
+
 					break;
 				}
 				case ActionType::MUSIC:
@@ -293,6 +382,7 @@ Player Scene::display(RenderWindow& window, Clock clock)
 							exit(1);
 						}
 					}
+
 					////for (auto& music : m_musics)
 					////{
 					////	if (actionExecutor.getMusicId() != std::get<0>(music))
@@ -416,75 +506,6 @@ Player Scene::display(RenderWindow& window, Clock clock)
 			m_state = SceneState::AWAIT;
 		}
 	}
-}
 
-void Scene::pushAction(Sprite sprite)
-{
-	m_characters.push_back(sprite);
-}
-
-void Scene::setBackground(Sprite sprite)
-{
-	m_background = sprite;
-}
-
-void Scene::setUserInterface(sf::RectangleShape userInterface)
-{
-	m_userInterface = userInterface;
-}
-
-Sprite Scene::getBackground()
-{
-	return m_background;
-}
-
-RectangleShape Scene::getUserInterface()
-{
-	return m_userInterface;
-}
-
-RectangleShape& Scene::getUserInterfaceForChanging()
-{
-	return m_userInterface;
-}
-
-Player& Scene::getPlayer()
-{
 	return m_player;
-}
-
-void Scene::setMusics(std::vector<std::string> musicsFileNames)
-{
-	for (auto& musicFileName : musicsFileNames)
-	{
-		sf::Music newMusic = sf::Music();
-		newMusic.openFromFile(musicFileName);
-		newMusic.setLoop(true);
-	}
-}
-
-std::vector<std::tuple<int, sf::Music&>> Scene::getMusics()
-{
-	return m_musics;
-}
-
-void Scene::addMusic(int id, std::string musicFileName, float startTimeInSecs = 0.f)
-{
-	//// TODO: возможно необходимо сделать возможность добавлять более одного трека в сцену
-	////m_musics.push_back(musicKeyValue);
-
-	sf::Music newMusic = sf::Music();
-	newMusic.openFromFile(musicFileName);
-	newMusic.setPlayingOffset(sf::seconds(startTimeInSecs));
-	newMusic.setLoop(true);
-
-	sf::Music& musicRef = newMusic;
-
-	m_musics.push_back({ id, musicRef });
-}
-
-void Scene::addMusicFile(sf::String musicFileName)
-{
-	m_music.openFromFile(musicFileName);
-	m_music.setLoop(true);
 }

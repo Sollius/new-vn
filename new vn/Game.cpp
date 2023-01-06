@@ -71,7 +71,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 	{
 		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(0, ActionType::BACKGROUND, BgActionType::MOVING_IN, scene.getBackground(), 3.f, nullVectorF, nullVectorF)),
 		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::MOVING_IN, charSprite, 1.f, charPosition, charPosition)),
-		std::shared_ptr<BaseAction>(std::make_shared<MusicAction>(2, ActionType::MUSIC, MusicActionType::PLAY, "snd_first.wav")), ////1:40:43
+		std::shared_ptr<BaseAction>(std::make_shared<MusicAction>(2, ActionType::MUSIC, MusicActionType::PLAY, "snd_first.wav",  0.f, 100.43f)), ////1:40:43
 	});
 	player = scene.display(window, clock);
 

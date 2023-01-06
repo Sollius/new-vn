@@ -12,7 +12,7 @@ private:
 	sf::RectangleShape m_userInterface = sf::RectangleShape();
 
 	bool m_isShowInterface = false;
-	bool m_isAutoSkip = false;
+	bool m_isAutoSkip = true;
 
 	sf::Sprite m_background = sf::Sprite();
 	std::vector<sf::RectangleShape> m_buttons = std::vector<sf::RectangleShape>();
@@ -43,6 +43,12 @@ public:
 
 	void setActions(std::vector<std::shared_ptr<BaseAction>> actions);
 
+	/// <summary>
+	/// Главный метод по отображению событий игры.
+	/// </summary>
+	/// <param name="window">Объект окна.</param>
+	/// <param name="clock">Объект часов.</param>
+	/// <returns></returns>
 	Player display(RenderWindow& window, Clock clock);
 
 	void pushAction(Sprite sprite);
@@ -65,6 +71,8 @@ public:
 
 	void addMusic(int id, std::string musicFileName, float startTime);
 
-	void addMusicFile(sf::String musicFileName);
+	void addMusicFile(std::string musicFileName);
+
+	void addMusicFileByInfo(std::tuple<std::string, float, float, float> musicFileInfo);
 };
 
