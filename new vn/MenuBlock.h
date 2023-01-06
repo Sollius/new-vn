@@ -14,8 +14,6 @@ private:
 	Font					m_font			= Font();
 	int						m_fontSize		= 20;
 	std::string				m_alignment		= "left";
-	Texture					m_texture		= Texture();
-	Sprite					m_sprite		= Sprite();
 
 public:
 	MenuBlock();
@@ -40,8 +38,6 @@ public:
 	RectangleShape getMainShape();
 
 	void setItemsBoldIfHovered(Window& window);
-
-	Sprite getSprite();
 
 	void itemClick(Window& window);
 

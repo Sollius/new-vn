@@ -45,6 +45,22 @@ Player Scene::display(RenderWindow& window, Clock clock)
 	m_state = SceneState::ANIMATION;
 
 	m_isShowInterface = false;
+	bool isMusicAdded = false, isMusicPlaying = false;
+
+	int musicActionsCount = 0;
+
+	for (auto& action : m_actions)
+	{
+		if (action.get()->getActionType() == ActionType::MUSIC && action.get()->getMusicActionType() == MusicActionType::PLAY)
+		{
+			musicActionsCount++;
+		}
+	}
+
+	if (m_musics.size() < musicActionsCount)
+	{
+		m_isNeedToPlayMusic = true;
+	}
 
 	while (m_state != SceneState::NONE)
 	{
@@ -132,10 +148,31 @@ Player Scene::display(RenderWindow& window, Clock clock)
 				}
 				case SceneState::ANIMATION:
 				{
-					actionExecutor.execute(clock, time);
-					if (action.get()->getActionType() == ActionType::TEXT || action.get()->getActionType() == ActionType::OPTION)
+					////////////////
+					//////////////// проверка на музыкальный тип только для музыкальный действий !!!!!!!!!!!!
+					////////////////
+ 					if (action.get()->getActionType() == ActionType::MUSIC && actionExecutor.getMusicActionType() == MusicActionType::PLAY)
 					{
-						m_isShowInterface = true;
+						////if (m_isNeedToPlayMusic)
+						////{
+						////	this->addMusic(actionExecutor.getMusicId(), actionExecutor.getMusicFileName(), 0);
+						////	m_isNeedToPlayMusic = false;
+						////}
+
+						if (!isMusicAdded)
+						{
+							addMusicFile(actionExecutor.getMusicFileName());
+							isMusicAdded = true;
+						}
+					}
+					else
+					{
+						actionExecutor.execute(clock, time);
+
+						if (action.get()->getActionType() == ActionType::TEXT || action.get()->getActionType() == ActionType::OPTION)
+						{
+							m_isShowInterface = true;
+						}
 					}
 
 					break;
@@ -183,6 +220,7 @@ Player Scene::display(RenderWindow& window, Clock clock)
 					{
 						m_isShowInterface = false;
 					}
+
 					m_texts.push_back(actionExecutor.getText());
 					break;
 				}
@@ -195,9 +233,136 @@ Player Scene::display(RenderWindow& window, Clock clock)
 					}
 					break;
 				}
+				case ActionType::MUSIC:
+				{
+					switch (actionExecutor.getMusicActionType())
+					{
+						case MusicActionType::PLAY:
+						{
+							////if (std::get<1>(music).getStatus() != sf::SoundSource::Playing)
+							if (!isMusicPlaying)
+							{
+								if (m_music.getStatus() != sf::SoundSource::Playing)
+								{
+									m_music.play();
+									isMusicPlaying = true;
+
+									auto status = m_music.getStatus();
+								}
+								else
+								{
+									throw __uncaught_exception;
+									std::cout << "Ошибка состояния музыкального потока" << std::endl;
+								}
+							}
+
+							break;
+						}
+						case MusicActionType::PAUSE:
+						{
+							if (m_music.getStatus() == sf::SoundSource::Playing)
+							{
+								m_music.pause();
+							}
+							else
+							{
+								throw __uncaught_exception;
+								std::cout << "Ошибка состояния музыкального потока" << std::endl;
+							}
+
+							break;
+						}
+						case MusicActionType::STOP:
+						{
+							if (m_music.getStatus() == sf::SoundSource::Playing)
+							{
+								m_music.stop();
+							}
+							else
+							{
+								throw __uncaught_exception;
+								std::cout << "Ошибка состояния музыкального потока" << std::endl;
+							}
+
+							break;
+						}
+						default:
+						{
+							throw __uncaught_exception;
+							std::cout << "Ошибка непредвиденного или неопределённого типа музыкального действия" << std::endl;
+							exit(1);
+						}
+					}
+					////for (auto& music : m_musics)
+					////{
+					////	if (actionExecutor.getMusicId() != std::get<0>(music))
+					////	{
+					////		throw __uncaught_exception;
+					////		std::cout << "Ошибка несоответствия номера действия и музыки" << std::endl;
+					////		exit(1);
+					////	}
+
+					////	switch (actionExecutor.getMusicActionType())
+					////	{
+					////		case MusicActionType::PLAY:
+					////		{
+					////			////if (std::get<1>(music).getStatus() != sf::SoundSource::Playing)
+					////			if (m_music.getStatus() != sf::SoundSource::Playing)
+					////			{
+					////				////std::get<1>(music).play();
+					////				m_music.play();
+					////			}
+					////			else
+					////			{
+					////				throw __uncaught_exception;
+					////				std::cout << "Ошибка состояния музыкального потока" << std::endl;
+					////			}
+
+					////			break;
+					////		}
+					////		case MusicActionType::PAUSE:
+					////		{
+					////			if (std::get<1>(music).getStatus() == sf::SoundSource::Playing)
+					////			{
+					////				std::get<1>(music).pause();
+					////			}
+					////			else
+					////			{
+					////				throw __uncaught_exception;
+					////				std::cout << "Ошибка состояния музыкального потока" << std::endl;
+					////			}
+
+					////			break;
+					////		}
+					////		case MusicActionType::STOP:
+					////		{
+					////			if (std::get<1>(music).getStatus() == sf::SoundSource::Playing)
+					////			{
+					////				std::get<1>(music).stop();
+					////			}
+					////			else
+					////			{
+					////				throw __uncaught_exception;
+					////				std::cout << "Ошибка состояния музыкального потока" << std::endl;
+					////			}
+
+					////			break;
+					////		}
+					////		default:
+					////		{
+					////			throw __uncaught_exception;
+					////			std::cout << "Ошибка непредвиденного или неопределённого типа музыкального действия" << std::endl;
+					////			exit(1);
+					////		}
+					////	}
+					////}
+
+					break;
+				}
 				default:
 				{
 					throw __uncaught_exception;
+					std::cout << "Ошибка непредвиденного или неопределённого типа действия" << std::endl;
 					exit(1);
 				}
 			}
@@ -281,4 +446,45 @@ RectangleShape Scene::getUserInterface()
 RectangleShape& Scene::getUserInterfaceForChanging()
 {
 	return m_userInterface;
+}
+
+Player& Scene::getPlayer()
+{
+	return m_player;
+}
+
+void Scene::setMusics(std::vector<std::string> musicsFileNames)
+{
+	for (auto& musicFileName : musicsFileNames)
+	{
+		sf::Music newMusic = sf::Music();
+		newMusic.openFromFile(musicFileName);
+		newMusic.setLoop(true);
+	}
+}
+
+std::vector<std::tuple<int, sf::Music&>> Scene::getMusics()
+{
+	return m_musics;
+}
+
+void Scene::addMusic(int id, std::string musicFileName, float startTimeInSecs = 0.f)
+{
+	//// TODO: возможно необходимо сделать возможность добавлять более одного трека в сцену
+	////m_musics.push_back(musicKeyValue);
+
+	sf::Music newMusic = sf::Music();
+	newMusic.openFromFile(musicFileName);
+	newMusic.setPlayingOffset(sf::seconds(startTimeInSecs));
+	newMusic.setLoop(true);
+
+	sf::Music& musicRef = newMusic;
+
+	m_musics.push_back({ id, musicRef });
+}
+
+void Scene::addMusicFile(sf::String musicFileName)
+{
+	m_music.openFromFile(musicFileName);
+	m_music.setLoop(true);
 }

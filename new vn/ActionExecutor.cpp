@@ -45,6 +45,24 @@ CharActionType ActionExecutor::getCharActionType()
 	exit(1);
 }
 
+MusicActionType ActionExecutor::getMusicActionType()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+int ActionExecutor::getMusicId()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+std::string ActionExecutor::getMusicFileName()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
 std::vector<std::tuple<sf::RectangleShape, sf::Text>> ActionExecutor::getButtons()
 {
 	throw __uncaught_exception;

@@ -25,4 +25,6 @@ public:
 	void writePlayerProgress();
 
 	void readPlayerProgress();
+
+	void rewritePlayerProgress();
 };

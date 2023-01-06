@@ -19,9 +19,14 @@ private:
 	std::vector<sf::Sprite> m_characters = std::vector<sf::Sprite>();
 	std::vector<sf::Text> m_texts = std::vector<sf::Text>();
 
+	std::vector<std::tuple<int, sf::Music&>> m_musics = std::vector<std::tuple<int, sf::Music&>>();
+	sf::Music m_music = sf::Music();
+
 	std::vector<std::shared_ptr<BaseAction>> m_actions = std::vector<std::shared_ptr<BaseAction>>();
 
 	Player m_player = Player();
+
+	bool m_isNeedToPlayMusic = false;
 
 
 public:
@@ -51,5 +56,15 @@ public:
 	RectangleShape getUserInterface();
 
 	RectangleShape& getUserInterfaceForChanging();
+
+	Player& getPlayer();
+
+	void setMusics(std::vector<std::string> musicsFileNames);
+
+	std::vector<std::tuple<int, sf::Music&>> getMusics();
+
+	void addMusic(int id, std::string musicFileName, float startTime);
+
+	void addMusicFile(sf::String musicFileName);
 };
 

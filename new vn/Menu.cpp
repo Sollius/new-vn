@@ -9,6 +9,20 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 	Loading loading(sf::Color(100, 100, 100, 150), sf::Color(50, 50, 50, 200), sf::Color(0, 150, 0, 200));
 	loading.showLoadingBarInCenter(window, Vector2f(200, 20), 4.f, clock);
 
+	sf::Texture menuBgTexture = sf::Texture();
+
+	if (!menuBgTexture.loadFromFile("img_menu_bg.png"))
+	{
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке фона меню" << std::endl;
+		exit(1);
+	}
+	
+	int cuttenPixels = 2;
+	sf::Sprite menuBgSprite = sf::Sprite(menuBgTexture, IntRect(cuttenPixels, cuttenPixels, menuBgTexture.getSize().x - (cuttenPixels * 2), menuBgTexture.getSize().y - (cuttenPixels * 2)));
+	float scale = (float)window.getSize().x / (float)menuBgTexture.getSize().x + 0.004;
+	menuBgSprite.setScale(scale, scale);
+
 	MenuBlock m_menuBlock = MenuBlock
 	(
 		4,
@@ -24,6 +38,23 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 		Color(255, 255, 255, 200),
 		"left"
 	);
+
+	std::string menuMusicFileFullPath = "snd_menu.wav";
+	sf::Music menuMusic = sf::Music();
+
+	if (!menuMusic.openFromFile(menuMusicFileFullPath))
+	{
+		throw __uncaught_exception;
+		std::cout << "Ошибка при открытии файла музыки меню" << std::endl;
+		exit(1);
+	}
+
+	menuMusic.setVolume(100.f);
+	menuMusic.setLoop(true);
+	menuMusic.setLoopPoints(sf::Music::TimeSpan(sf::seconds(4.f), sf::seconds(112.f)));
+	//// для тестирования петли
+	////menuMusic.setPlayingOffset(sf::seconds(100.f));
+	menuMusic.play();
 
 	Time time = clock.restart();
 
@@ -103,13 +134,19 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 							window.close();
 							break;
 						case MenuStringFunction::NEW_GAME:
-							Game(window, debugConsole, debug, clock, player);
+							menuMusic.stop();
+							Game(window, debugConsole, debug, clock, player, 1);
+							menuMusic.play();
 							break;
 						case MenuStringFunction::LOAD_GAME:
+							menuMusic.stop();
+							Game(window, debugConsole, debug, clock, player, 2);
+							menuMusic.play();
 							break;
 						case MenuStringFunction::SETTINGS:
 							break;
 						case MenuStringFunction::EXIT:
+							menuMusic.stop();
 							window.close();
 							break;
 						}
@@ -125,7 +162,7 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 
 		window.clear(Color::Blue);
 
-		window.draw(m_menuBlock.getSprite());
+		window.draw(menuBgSprite);
 
 		for (auto& menuItem : m_menuBlock.getItems())
 		{

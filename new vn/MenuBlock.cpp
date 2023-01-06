@@ -10,8 +10,6 @@ MenuBlock::MenuBlock(int itemsCount, Vector2f startPoint, Vector2f size, std::ve
 	m_size = size;
 	m_mainShape = RectangleShape(size);
 	m_alignment = alignment;
-	m_texture.loadFromFile(bgImageName);
-	m_sprite.setTexture(m_texture);
 	m_textFillColor = textFillColor;
 	
 	if (!m_font.loadFromFile("calibri.ttf"))
@@ -37,8 +35,6 @@ MenuBlock::MenuBlock(int itemsCount, Vector2f startPoint, Vector2f size, std::ve
 	m_size = size;
 	m_mainShape = RectangleShape(size);
 	m_alignment = alignment;
-	m_texture.loadFromFile("menu_bg.jpg");
-	m_sprite.setTexture(m_texture);
 	m_textFillColor = textFillColor;
 
 	if (!m_font.loadFromFile("calibri.ttf"))
@@ -85,8 +81,6 @@ MenuBlock::MenuBlock(
 	m_size = size;
 	m_mainShape = RectangleShape(size);
 	m_alignment = alignment;
-	m_texture.loadFromFile("menu_bg.jpg");
-	m_sprite.setTexture(m_texture);
 	m_textFillColor = textFillColor;
 
 	if (!m_font.loadFromFile("calibri.ttf"))
@@ -143,11 +137,6 @@ void MenuBlock::setItemsBoldIfHovered(Window& window)
 			item.getTextForChanging().setStyle(Text::Style::Regular);
 		}
 	}
-}
-
-Sprite MenuBlock::getSprite()
-{
-	return m_sprite;
 }
 
 void MenuBlock::itemClick(Window& window)

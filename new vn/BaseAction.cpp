@@ -27,6 +27,12 @@ BaseAction::BaseAction(int orderNumber, ActionType actionType, float actionDurat
 	m_actionDurationInS = actionDuration;
 }
 
+BaseAction::BaseAction(int orderNumber, ActionType actionType)
+{
+	m_orderNumber = orderNumber;
+	m_actionType = actionType;
+}
+
 void BaseAction::setState(bool state)
 {
 	m_isActionOver = state;
@@ -162,7 +168,25 @@ CharActionType BaseAction::getCharActionType()
 	exit(1);
 }
 
+MusicActionType BaseAction::getMusicActionType()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
 std::vector<std::tuple<sf::RectangleShape, sf::Text>> BaseAction::getButtons()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+int BaseAction::getMusicId()
+{
+	throw __uncaught_exception;
+	exit(1);
+}
+
+std::string BaseAction::getMusicFileName()
 {
 	throw __uncaught_exception;
 	exit(1);

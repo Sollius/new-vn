@@ -59,7 +59,7 @@ int main()
 	while (window.isOpen())
 	{
 		Menu(window, debugConsole, debug, clock, player);
-		Game(window, debugConsole, debug, clock, player);
+		Game(window, debugConsole, debug, clock, player, 2);
 	}
 
 	return 0;

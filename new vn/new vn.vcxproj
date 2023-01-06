@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug Static|Win32">
@@ -203,6 +203,7 @@
     <ClCompile Include="MenuBlock.cpp" />
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="MenuStringFunction.h" />
+    <ClCompile Include="MusicAction.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayingInterface.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -227,6 +228,8 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuBlock.h" />
     <ClInclude Include="MenuItem.h" />
+    <ClInclude Include="MusicAction.h" />
+    <ClInclude Include="MusicActionType.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayingInterface.h" />
     <ClInclude Include="Scene.h" />
@@ -241,6 +244,10 @@
   <ItemGroup>
     <Image Include="char0.png" />
     <Image Include="menu_bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="snd_first.wav" />
+    <Media Include="snd_menu.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

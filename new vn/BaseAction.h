@@ -27,19 +27,27 @@ public:
 
 	BaseAction(int orderNumber, ActionType actionType, float actionDuration);
 
-	virtual Sprite getSprite();
-
-	virtual Text getText();
+	BaseAction(int orderNumber, ActionType actionType);
 
 	virtual void execute(sf::Clock clock, Time time);
-
-	virtual bool getState();
 
 	virtual void setSkipped();
 
 	virtual void setHovered(Vector2f point);
 
 	virtual void setUnhovered(Vector2f point);
+
+	virtual Sprite getSprite();
+
+	virtual Text getText();
+
+	virtual std::vector<std::tuple<sf::RectangleShape, sf::Text>> getButtons();
+
+	virtual int getMusicId();
+
+	virtual std::string getMusicFileName();
+
+	virtual bool getState();
 
 	virtual int getSelectedOptionNumber(Vector2f point);
 
@@ -51,7 +59,7 @@ public:
 
 	virtual CharActionType getCharActionType();
 
-	virtual std::vector<std::tuple<sf::RectangleShape, sf::Text>> getButtons();
+	virtual MusicActionType getMusicActionType();
 
 	void setState(bool state);
 

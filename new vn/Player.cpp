@@ -70,6 +70,9 @@ void Player::readPlayerProgress()
 		std::string key = "", stringValue = "";
 		int value = 0;
 
+		//// очистка списка флагов (если вдруг он не пуст)
+		m_flags.clear();
+
 		for (std::string line; std::getline(fileStream, line);)
 		{
 			if (!keyReading)
@@ -104,4 +107,12 @@ void Player::readPlayerProgress()
 			}
 		}
 	}
+}
+
+void Player::rewritePlayerProgress()
+{
+	std::ifstream fileStream = std::ifstream(m_saveFileName, std::ios_base::in);
+	std::ofstream{ m_saveFileName } << "user1" << std::endl;
+
+	this->readPlayerProgress();
 }
