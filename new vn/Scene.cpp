@@ -152,8 +152,126 @@ Player Scene::display(RenderWindow& window, Clock clock)
 
 	while (m_state != SceneState::NONE)
 	{
+		//////////////////////////////
+		////// EVENT DIFINITION //////
+		//////////////////////////////
+
 		while (window.pollEvent(event))
 		{
+			switch (m_state)
+			{
+				case SceneState::NONE:
+				{
+					throw __uncaught_exception;
+					std::cout << "ЌеопределЄнный этап отрисовки рендера изображени€" << std::endl;
+					exit(1);
+					break;
+				}
+				case SceneState::ANIMATION:
+				{
+					if (event.type == sf::Event::MouseButtonPressed)
+					{
+						if (!m_isAutoSkip)
+						{
+							if (m_state == SceneState::ANIMATION)
+							{
+								m_state = SceneState::AWAIT;
+							}
+							else
+							{
+								m_state = SceneState::NONE;
+							}
+						}
+						else
+						{
+							m_actions.clear();
+							m_texts.clear();
+
+							return m_player;
+							break;
+						}
+					}
+
+					break;
+				}
+				case SceneState::TEXT_DISPLAYING:
+				{
+					break;
+				}
+				case SceneState::ANSWER_AWAITING:
+				{
+					for (auto& action : m_actions)
+					{
+						if (event.type == sf::Event::MouseButtonPressed)
+						{
+							if (action.get()->getActionType() == ActionType::OPTION)
+							{
+								for (auto& button : m_buttons)
+								{
+									if (button.getGlobalBounds().contains(Vector2f(Mouse::getPosition(window))))
+									{
+										m_player.addFlag({ action.get()->getSelectionName(), action.get()->getSelectedOptionNumber(Vector2f(Mouse::getPosition(window))) });
+
+										m_actions.clear();
+										m_texts.clear();
+										m_buttons.clear();
+
+										return m_player;
+									}
+								}
+							}
+						}
+
+						if (event.type == sf::Event::MouseMoved)
+						{
+							for (auto& action : m_actions)
+							{
+								if (action.get()->getActionType() == ActionType::OPTION)
+								{
+									action.get()->setHovered(Vector2f(Mouse::getPosition(window)));
+								}
+							}
+						}
+					}
+
+					break;
+				}
+				case SceneState::AWAIT:
+				{
+					if (event.type == sf::Event::MouseButtonPressed)
+					{
+						if (!m_isAutoSkip)
+						{
+							if (m_state == SceneState::ANIMATION)
+							{
+								m_state = SceneState::AWAIT;
+							}
+							else
+							{
+								m_state = SceneState::NONE;
+							}
+						}
+						else
+						{
+							m_actions.clear();
+							m_texts.clear();
+
+							return m_player;
+							break;
+						}
+					}
+
+					break;
+				}
+				default:
+				{
+					throw __uncaught_exception;
+					std::cout << "ќшибка в определении этапа отрисовки рендера изображени€" << std::endl;
+					exit(1);
+					break;
+				}
+			}
+
 			switch (event.type)
 			{
 				case sf::Event::Closed:
@@ -165,25 +283,7 @@ Player Scene::display(RenderWindow& window, Clock clock)
 					{
 						case sf::Keyboard::Escape:
 						{
-							if (!m_isAutoSkip)
-							{
-								if (m_state == SceneState::ANIMATION)
-								{
-									m_state = SceneState::AWAIT;
-								}
-								else
-								{
-									m_state = SceneState::NONE;
-								}
-							}
-							else
-							{
-								m_actions.clear();
-								m_texts.clear();
-
-								return m_player;
-								break;
-							}
+							//// TODO: окошко меню
 						}
 					}
 
@@ -191,32 +291,11 @@ Player Scene::display(RenderWindow& window, Clock clock)
 				}
 				case sf::Event::MouseMoved:
 				{
-					for (auto& action : m_actions)
-					{
-						if (action.get()->getActionType() == ActionType::OPTION)
-						{
-							action.get()->setHovered(Vector2f(Mouse::getPosition(window)));
-						}
-					}
-
 					break;
 				}
 				case sf::Event::MouseButtonPressed:
 				{
-					for (auto& action : m_actions)
-					{
-						if (action.get()->getActionType() == ActionType::OPTION)
-						{
-							m_player.addFlag({ action.get()->getSelectionName(), action.get()->getSelectedOptionNumber(Vector2f(Mouse::getPosition(window))) });
-
-							m_actions.clear();
-							m_texts.clear();
-							m_buttons.clear();
-
-							return m_player;
-						    break;
-						}
-					}
+					break;
 				}
 			}
 		}
@@ -228,9 +307,7 @@ Player Scene::display(RenderWindow& window, Clock clock)
 		{
 			ActionExecutor& actionExecutor = *action;
 
-			////////////////
-			//////////////// проверка на музыкальный тип только дл€ музыкальный действий !!!!!!!!!!!!
-			////////////////
+			////// добавление музыки
 			if (action.get()->getActionType() == ActionType::MUSIC && actionExecutor.getMusicActionType() == MusicActionType::PLAY)
 			{
 				////if (m_isNeedToPlayMusic)
@@ -254,8 +331,6 @@ Player Scene::display(RenderWindow& window, Clock clock)
 				}
 				case SceneState::ANIMATION:
 				{
-					actionExecutor.execute(clock, time);
-
 					if (action.get()->getActionType() == ActionType::TEXT || action.get()->getActionType() == ActionType::OPTION && action.get()->getActionType() != ActionType::MUSIC)
 					{
 						m_isShowInterface = true;
@@ -280,6 +355,17 @@ Player Scene::display(RenderWindow& window, Clock clock)
 					action.get()->setSkipped();
 					break;
 				}
+				case SceneState::ANSWER_AWAITING:
+				{
+					break;
+				}
+				default:
+				{
+					throw __uncaught_exception;
+					std::cout << "ќшибка при определении стадии рендера изображени€" << std::endl;
+					exit(1);
+					break;
+				}
 			}
 
 			switch (action.get()->getActionType())
@@ -292,11 +378,15 @@ Player Scene::display(RenderWindow& window, Clock clock)
 				}
 				case ActionType::BACKGROUND:
 				{
+					actionExecutor.execute(clock, time);
+
 					setBackground(actionExecutor.getSprite());
 					break;
 				}
 				case ActionType::CHARACTER:
 				{
+					actionExecutor.execute(clock, time);
+
 					m_characters.push_back(actionExecutor.getSprite());
 					break;
 				}
@@ -462,6 +552,10 @@ Player Scene::display(RenderWindow& window, Clock clock)
 				finishedActionsCount++;
 			}
 		}
+
+		//////////////////////
+		///// DISPLAYING /////
+		//////////////////////
 
 		window.clear(Color::Black);
 

@@ -12,7 +12,7 @@ private:
 	sf::RectangleShape m_userInterface = sf::RectangleShape();
 
 	bool m_isShowInterface = false;
-	bool m_isAutoSkip = true;
+	bool m_isAutoSkip = false;
 
 	sf::Sprite m_background = sf::Sprite();
 	std::vector<sf::RectangleShape> m_buttons = std::vector<sf::RectangleShape>();
