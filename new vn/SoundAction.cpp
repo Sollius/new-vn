@@ -13,7 +13,6 @@ SoundAction::SoundAction(int orderNumber, ActionType actionType, int id, SoundAc
 	m_soundActionType = soundActionType;
 	m_id = id;
 
-	////sf::SoundBuffer buffer;
 	if (!m_soundBuffer.loadFromFile("resources\\snd\\" + fileName))
 	{
 		throw __uncaught_exception;
@@ -29,7 +28,6 @@ SoundAction::SoundAction(int orderNumber, ActionType actionType, int id, SoundAc
 	m_soundActionType = soundActionType;
 	m_id = id;
 
-	////sf::SoundBuffer buffer;
 	if (!m_soundBuffer.loadFromFile("resources\\snd\\" + fileName))
 	{
 		throw __uncaught_exception;
