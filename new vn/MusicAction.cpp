@@ -17,13 +17,13 @@ MusicAction::MusicAction(int orderNumber, ActionType actionType, MusicActionType
 MusicAction::MusicAction(int orderNumber, ActionType actionType, MusicActionType musicActionType, std::string musicFileName) : BaseAction(orderNumber, actionType)
 {
 	m_musicActionType = musicActionType;
-	m_fileName = musicFileName;
+	m_fileName = "resources\\snd\\music\\" + musicFileName;
 }
 
 MusicAction::MusicAction(int orderNumber, ActionType actionType, MusicActionType musicActionType, std::string musicFileName, float loopBeginning, float loopEnd) : BaseAction(orderNumber, actionType)
 {
 	m_musicActionType = musicActionType;
-	m_fileName = musicFileName;
+	m_fileName = "resources\\snd\\music\\" + musicFileName;
 	m_loopStart = loopBeginning;
 	m_loopEnd = loopEnd;
 }
@@ -31,7 +31,7 @@ MusicAction::MusicAction(int orderNumber, ActionType actionType, MusicActionType
 MusicAction::MusicAction(int orderNumber, ActionType actionType, MusicActionType musicActionType, std::string musicFileName, float startTime, float loopBeginning, float loopEnd) : BaseAction(orderNumber, actionType)
 {
 	m_musicActionType = musicActionType;
-	m_fileName = musicFileName;
+	m_fileName = "resources\\snd\\music\\" + musicFileName;
 	m_startTime = startTime;
 	m_loopStart = loopBeginning;
 	m_loopEnd = loopEnd;

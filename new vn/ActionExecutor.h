@@ -5,6 +5,7 @@
 #include "CharActionType.h"
 #include "TextActionType.h"
 #include "MusicActionType.h"
+#include "SoundActionType.h"
 
 class ActionExecutor
 {
@@ -19,6 +20,10 @@ public:
 
 	virtual Text getText();
 
+	virtual sf::Sound& getSound();
+
+	virtual sf::SoundBuffer& getSoundBuffer();
+
 	virtual std::vector<std::tuple<sf::RectangleShape, sf::Text>> getButtons();
 
 	virtual BgActionType getBgActionType();
@@ -29,7 +34,11 @@ public:
 
 	virtual MusicActionType getMusicActionType();
 
+	virtual SoundActionType getSoundActionType();
+
 	virtual int getMusicId();
+
+	virtual int getSoundId();
 
 	virtual std::string getMusicFileName();
 

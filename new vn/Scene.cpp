@@ -135,21 +135,6 @@ Player Scene::display(RenderWindow& window, Clock clock)
 	m_isShowInterface = false;
 	bool isMusicAdded = false, isMusicPlaying = false;
 
-	////int musicActionsCount = 0;
-
-	////for (auto& action : m_actions)
-	////{
-	////	if (action.get()->getActionType() == ActionType::MUSIC && action.get()->getMusicActionType() == MusicActionType::PLAY)
-	////	{
-	////		musicActionsCount++;
-	////	}
-	////}
-
-	////if (m_musics.size() < musicActionsCount)
-	////{
-	////	m_isNeedToPlayMusic = true;
-	////}
-
 	while (m_state != SceneState::NONE)
 	{
 		//////////////////////////////
@@ -162,10 +147,10 @@ Player Scene::display(RenderWindow& window, Clock clock)
 			{
 				case SceneState::NONE:
 				{
-					throw __uncaught_exception;
-					std::cout << "Неопределённый этап отрисовки рендера изображения" << std::endl;
-					exit(1);
-					break;
+					////throw __uncaught_exception;
+					////std::cout << "Неопределённый этап рендера изображения" << std::endl;
+					////exit(1);
+					////break;
 				}
 				case SceneState::ANIMATION:
 				{
@@ -266,7 +251,7 @@ Player Scene::display(RenderWindow& window, Clock clock)
 				default:
 				{
 					throw __uncaught_exception;
-					std::cout << "Ошибка в определении этапа отрисовки рендера изображения" << std::endl;
+					std::cout << "Ошибка в определении этапа рендера изображения" << std::endl;
 					exit(1);
 					break;
 				}
@@ -300,6 +285,10 @@ Player Scene::display(RenderWindow& window, Clock clock)
 			}
 		}
 
+		///////////////////////////////////
+		///// цикл перебора действий //////
+		///////////////////////////////////
+
 		m_characters.clear();
 		int finishedActionsCount = 0;
 	
@@ -320,6 +309,27 @@ Player Scene::display(RenderWindow& window, Clock clock)
 				{
 					addMusicFileByInfo(actionExecutor.getMusicFileInfo());
 					isMusicAdded = true;
+				}
+			}
+
+			if (action.get()->getActionType() == ActionType::SOUND)
+			{
+				if (actionExecutor.getSoundActionType() == SoundActionType::PLAY)
+				{
+					bool isNeedToAddSound = true;
+
+					for (auto& sound : m_sounds)
+					{
+						if (std::get<0>(sound) == actionExecutor.getSoundId())
+						{
+							isNeedToAddSound = false;
+						}
+					}
+
+					if (isNeedToAddSound)
+					{
+						m_sounds.push_back(std::make_tuple(actionExecutor.getSoundId(), sf::Sound(actionExecutor.getSoundBuffer()), false));
+					}
 				}
 			}
 
@@ -473,69 +483,19 @@ Player Scene::display(RenderWindow& window, Clock clock)
 						}
 					}
 
-					////for (auto& music : m_musics)
-					////{
-					////	if (actionExecutor.getMusicId() != std::get<0>(music))
-					////	{
-					////		throw __uncaught_exception;
-					////		std::cout << "Ошибка несоответствия номера действия и музыки" << std::endl;
-					////		exit(1);
-					////	}
+					break;
+				}
+				case ActionType::SOUND:
+				{
+					for (auto& sound : m_sounds)
+					{
+						if (!std::get<2>(sound))
+						{
+							std::get<1>(sound).play();
 
-					////	switch (actionExecutor.getMusicActionType())
-					////	{
-					////		case MusicActionType::PLAY:
-					////		{
-					////			////if (std::get<1>(music).getStatus() != sf::SoundSource::Playing)
-					////			if (m_music.getStatus() != sf::SoundSource::Playing)
-					////			{
-					////				////std::get<1>(music).play();
-					////				m_music.play();
-					////			}
-					////			else
-					////			{
-					////				throw __uncaught_exception;
-					////				std::cout << "Ошибка состояния музыкального потока" << std::endl;
-					////			}
-
-					////			break;
-					////		}
-					////		case MusicActionType::PAUSE:
-					////		{
-					////			if (std::get<1>(music).getStatus() == sf::SoundSource::Playing)
-					////			{
-					////				std::get<1>(music).pause();
-					////			}
-					////			else
-					////			{
-					////				throw __uncaught_exception;
-					////				std::cout << "Ошибка состояния музыкального потока" << std::endl;
-					////			}
-
-					////			break;
-					////		}
-					////		case MusicActionType::STOP:
-					////		{
-					////			if (std::get<1>(music).getStatus() == sf::SoundSource::Playing)
-					////			{
-					////				std::get<1>(music).stop();
-					////			}
-					////			else
-					////			{
-					////				throw __uncaught_exception;
-					////				std::cout << "Ошибка состояния музыкального потока" << std::endl;
-					////			}
-
-					////			break;
-					////		}
-					////		default:
-					////		{
-					////			throw __uncaught_exception;
-					////			std::cout << "Ошибка непредвиденного или неопределённого типа музыкального действия" << std::endl;
-					////			exit(1);
-					////		}
-					////	}
-					////}
+							std::get<2>(sound) = true;
+						}
+					}
 
 					break;
 				}
@@ -593,6 +553,7 @@ Player Scene::display(RenderWindow& window, Clock clock)
 				m_actions.clear();
 				m_texts.clear();
 				m_buttons.clear();
+				m_sounds.clear();
 
 				return m_player;
 			}

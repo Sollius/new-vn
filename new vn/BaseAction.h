@@ -41,9 +41,15 @@ public:
 
 	virtual Text getText();
 
+	virtual sf::Sound& getSound();
+
+	virtual sf::SoundBuffer& getSoundBuffer();
+
 	virtual std::vector<std::tuple<sf::RectangleShape, sf::Text>> getButtons();
 
 	virtual int getMusicId();
+
+	virtual int getSoundId();
 
 	virtual std::string getMusicFileName();
 
@@ -62,6 +68,8 @@ public:
 	virtual CharActionType getCharActionType();
 
 	virtual MusicActionType getMusicActionType();
+
+	virtual SoundActionType getSoundActionType();
 
 	void setState(bool state);
 

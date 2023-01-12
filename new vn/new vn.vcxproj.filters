@@ -123,6 +123,9 @@
     <ClCompile Include="MusicAction.cpp">
       <Filter>Source Files\Game\Actions</Filter>
     </ClCompile>
+    <ClCompile Include="SoundAction.cpp">
+      <Filter>Source Files\Game\Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainHeader.h">
@@ -194,26 +197,38 @@
     <ClInclude Include="MusicAction.h">
       <Filter>Header Files\Game\Actions</Filter>
     </ClInclude>
+    <ClInclude Include="SoundActionType.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundAction.h">
+      <Filter>Header Files\Game\Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="calibri.ttf">
+    <Font Include="resources\fonts\calibri.ttf">
       <Filter>Resource Files\fonts</Filter>
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="menu_bg.jpg">
+    <Image Include="resources\img\char0.png">
       <Filter>Resource Files\img</Filter>
     </Image>
-    <Image Include="char0.png">
+    <Image Include="resources\img\img_menu_bg.png">
+      <Filter>Resource Files\img</Filter>
+    </Image>
+    <Image Include="resources\img\menu_bg.jpg">
       <Filter>Resource Files\img</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="snd_menu.wav">
+    <Media Include="resources\snd\music\snd_first.wav">
       <Filter>Resource Files\snd\music</Filter>
     </Media>
-    <Media Include="snd_first.wav">
+    <Media Include="resources\snd\music\snd_menu.wav">
       <Filter>Resource Files\snd\music</Filter>
+    </Media>
+    <Media Include="resources\snd\snd_test.wav">
+      <Filter>Resource Files\snd</Filter>
     </Media>
   </ItemGroup>
 </Project>

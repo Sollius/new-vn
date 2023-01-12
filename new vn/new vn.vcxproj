@@ -208,6 +208,7 @@
     <ClCompile Include="PlayingInterface.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SelectionAction.cpp" />
+    <ClCompile Include="SoundAction.cpp" />
     <ClCompile Include="TextAction.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -235,19 +236,25 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneState.h" />
     <ClInclude Include="SelectionAction.h" />
+    <ClInclude Include="SoundAction.h" />
+    <ClInclude Include="SoundActionType.h" />
     <ClInclude Include="TextAction.h" />
     <ClInclude Include="TextActionType.h" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="calibri.ttf" />
+    <Font Include="resources\fonts\calibri.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="char0.png" />
-    <Image Include="menu_bg.jpg" />
+    <Image Include="resources\img\char0.png" />
+    <Image Include="resources\img\img_menu_bg.png" />
+    <Image Include="resources\img\menu_bg.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="snd_first.wav" />
-    <Media Include="snd_menu.wav" />
+    <Media Include="resources\snd\music\snd_first.wav" />
+    <Media Include="resources\snd\music\snd_menu.wav" />
+    <Media Include="resources\snd\snd_test.wav">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Media>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

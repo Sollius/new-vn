@@ -8,5 +8,6 @@ enum class ActionType
 	TEXT = 3,
 	OPTION = 4,
 	TIMER = 5,
-	MUSIC = 6
+	MUSIC = 6,
+	SOUND = 7
 };

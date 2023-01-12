@@ -11,7 +11,7 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 
 	sf::Texture menuBgTexture = sf::Texture();
 
-	if (!menuBgTexture.loadFromFile("img_menu_bg.png"))
+	if (!menuBgTexture.loadFromFile("resources\\img\\img_menu_bg.png"))
 	{
 		throw __uncaught_exception;
 		std::cout << "Ошибка при загрузке фона меню" << std::endl;
@@ -39,7 +39,7 @@ int Menu(RenderWindow& window, DebugConsole debugConsole, bool debug, Clock cloc
 		"left"
 	);
 
-	std::string menuMusicFileFullPath = "snd_menu.wav";
+	std::string menuMusicFileFullPath = "resources\\snd\\music\\snd_menu.wav";
 	sf::Music menuMusic = sf::Music();
 
 	if (!menuMusic.openFromFile(menuMusicFileFullPath))

@@ -12,10 +12,12 @@ MenuBlock::MenuBlock(int itemsCount, Vector2f startPoint, Vector2f size, std::ve
 	m_alignment = alignment;
 	m_textFillColor = textFillColor;
 	
-	if (!m_font.loadFromFile("calibri.ttf"))
+	if (!m_font.loadFromFile("resources\\fonts\\calibri.ttf"))
 	{
-		std::cout << "Error with font loading" << std::endl;
-	};
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке шрифта" << std::endl;
+		exit(1);
+	}
 
 	for (int count = 0; count < itemsCount; count++)
 	{
@@ -37,10 +39,12 @@ MenuBlock::MenuBlock(int itemsCount, Vector2f startPoint, Vector2f size, std::ve
 	m_alignment = alignment;
 	m_textFillColor = textFillColor;
 
-	if (!m_font.loadFromFile("calibri.ttf"))
+	if (!m_font.loadFromFile("resources\\fonts\\calibri.ttf"))
 	{
-		std::cout << "Error with font loading" << std::endl;
-	};
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке шрифта" << std::endl;
+		exit(1);
+	}
 
 	for (int count = 0; count < itemsCount; count++)
 	{
@@ -83,10 +87,12 @@ MenuBlock::MenuBlock(
 	m_alignment = alignment;
 	m_textFillColor = textFillColor;
 
-	if (!m_font.loadFromFile("calibri.ttf"))
+	if (!m_font.loadFromFile("resources\\fonts\\calibri.ttf"))
 	{
-		std::cout << "Error with font loading" << std::endl;
-	};
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке шрифта" << std::endl;
+		exit(1);
+	}
 
 	for (int count = 0; count < itemsCount; count++)
 	{

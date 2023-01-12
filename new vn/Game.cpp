@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "SelectionAction.h"
 #include "MusicAction.h"
+#include "SoundAction.h"
 
 
 
@@ -26,13 +27,28 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 	BaseAction baseAction = BaseAction();
 
 	Font defaultFont = Font();
-	defaultFont.loadFromFile("calibri.ttf");
+	if (!defaultFont.loadFromFile("resources\\fonts\\calibri.ttf"))
+	{
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке шрифта" << std::endl;
+		exit(1);
+	}
 
 	Texture bgTexture, charTexture;
-	bgTexture.loadFromFile("menu_bg.jpg");
+	if (!bgTexture.loadFromFile("resources\\img\\menu_bg.jpg"))
+	{
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке изображения" << std::endl;
+		exit(1);
+	}
 	sf::Sprite bgSprite = Sprite(bgTexture, IntRect(Vector2i(0, 0), (Vector2i)bgTexture.getSize()));
 
-	charTexture.loadFromFile("char0.png");
+	if (!charTexture.loadFromFile("resources\\img\\char0.png"))
+	{
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке изображения" << std::endl;
+		exit(1);
+	}
 	Sprite charSprite = Sprite(charTexture, IntRect(Vector2i(0, 0), (Vector2i)charTexture.getSize()));
 
 	Vector2f charPosition = Vector2f(500, 200);
@@ -92,6 +108,13 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 		});
 		player = scene.display(window, clock);
 	}
+
+	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
+	{
+		std::shared_ptr<BaseAction>(std::make_shared<SoundAction>(0, ActionType::SOUND, 0, SoundActionType::PLAY, "snd_test.ogg")),
+		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::AWAIT, charSprite, 5.f, charPosition, charPosition)),
+	});
+	player = scene.display(window, clock);
 
 	switch (player.getFlag("Проверка на петуха"))
 	{

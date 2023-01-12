@@ -78,7 +78,7 @@ void Player::readPlayerProgress()
 			if (!keyReading)
 			{
 				m_playerName = line;
-				std::cout << line << std::endl;
+				////std::cout << line << std::endl;
 				keyReading = true;
 			}
 			else
@@ -102,7 +102,7 @@ void Player::readPlayerProgress()
 					}
 				}
 
-				std::cout << key + "," << value << std::endl;
+				////std::cout << key + "," << value << std::endl;
 				m_flags.push_back({ key, value });
 			}
 		}

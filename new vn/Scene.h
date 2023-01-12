@@ -18,6 +18,7 @@ private:
 	std::vector<sf::RectangleShape> m_buttons = std::vector<sf::RectangleShape>();
 	std::vector<sf::Sprite> m_characters = std::vector<sf::Sprite>();
 	std::vector<sf::Text> m_texts = std::vector<sf::Text>();
+	std::vector<std::tuple<int, sf::Sound, bool>> m_sounds = std::vector<std::tuple<int, sf::Sound, bool>>();
 
 	std::vector<std::tuple<int, sf::Music&>> m_musics = std::vector<std::tuple<int, sf::Music&>>();
 	sf::Music m_music = sf::Music();

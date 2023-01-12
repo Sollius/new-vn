@@ -15,7 +15,12 @@ int main()
 	bool debug = true;
 
 	Font defaultFont;
-	defaultFont.loadFromFile("calibri.ttf");
+	if (!defaultFont.loadFromFile("resources\\fonts\\calibri.ttf"))
+	{
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке шрифта" << std::endl;
+		exit(1);
+	}
 
 	Uint32 windowStyle;
 	Vector2i windowSize;
@@ -37,14 +42,14 @@ int main()
 		Vector2f(1500, 100),
 		Color(0, 0, 0, 150),
 		std::vector<Text>
-	{
-		Text(String(""), defaultFont, 20),
+		{
 			Text(String(""), defaultFont, 20),
 			Text(String(""), defaultFont, 20),
 			Text(String(""), defaultFont, 20),
 			Text(String(""), defaultFont, 20),
 			Text(String(""), defaultFont, 20),
-	}
+			Text(String(""), defaultFont, 20),
+		}
 	);
 
 	Player player;

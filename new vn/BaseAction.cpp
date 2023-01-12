@@ -91,12 +91,28 @@ Vector2f BaseAction::getMovingStep()
 Sprite BaseAction::getSprite()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате типа звукового действия\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 Text BaseAction::getText()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате текста\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
+	exit(1);
+}
+
+sf::Sound& BaseAction::getSound()
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате звука\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
+	exit(1);
+}
+
+sf::SoundBuffer& BaseAction::getSoundBuffer()
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате буфера звука\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
@@ -113,87 +129,111 @@ Vector2f BaseAction::getEndPosition()
 void BaseAction::execute(sf::Clock clock, Time time)
 {
 	throw __uncaught_exception;
-	exit(1); 
+	std::cout << "Ошибка при возврате исполнении действия\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
+	exit(1);
 }
 
 void BaseAction::setSkipped()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при пропуске действия\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 void BaseAction::setHovered(Vector2f point)
 {
 	throw __uncaught_exception;
-	std::cout << "Ошибка при преобразовании объекта (кнопки) в активный." << std::endl;
+	std::cout << "Ошибка при преобразовании объекта (кнопки) в активный\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 void BaseAction::setUnhovered(Vector2f point)
 {
 	throw __uncaught_exception;
-	std::cout << "Ошибка при преобразовании объекта (кнопки) в неактивный." << std::endl;
+	std::cout << "Ошибка при преобразовании объекта (кнопки) в неактивный\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 int BaseAction::getSelectedOptionNumber(Vector2f point)
 {
 	throw __uncaught_exception;
-	std::cout << "Ошибка при выборе варианта ответа." << std::endl;
+	std::cout << "Ошибка при выборе варианта ответа\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 std::string BaseAction::getSelectionName()
 {
 	throw __uncaught_exception;
-	std::cout << "Ошибка при возврате названия действия выбора." << std::endl;
+	std::cout << "Ошибка при возврате названия действия выбора\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 TextActionType BaseAction::getTextActionType()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате типа действия с текстом\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 BgActionType BaseAction::getBgActionType()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате типа действия с фоном\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 CharActionType BaseAction::getCharActionType()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате типа действия со спрайтом персонажа\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 MusicActionType BaseAction::getMusicActionType()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате типа музыкального действия\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
+	exit(1);
+}
+
+SoundActionType BaseAction::getSoundActionType()
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате типа звукового действия\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 std::vector<std::tuple<sf::RectangleShape, sf::Text>> BaseAction::getButtons()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате кнопок\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 int BaseAction::getMusicId()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате идентификатора файла с музыкой\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
+	exit(1);
+}
+
+int BaseAction::getSoundId()
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате идентификатора звука\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 std::string BaseAction::getMusicFileName()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате имени музыкального файла\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }
 
 std::tuple<std::string, float, float, float> BaseAction::getMusicFileInfo()
 {
 	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате информации о музыкальном файле\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
 	exit(1);
 }

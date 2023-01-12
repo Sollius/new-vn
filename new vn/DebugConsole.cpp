@@ -56,7 +56,12 @@ void DebugConsole::switchShowingConsole()
 
 void DebugConsole::fontDefaultInitializing()
 {
-	m_font.loadFromFile("calibri.ttf");
+	if(!m_font.loadFromFile("resources\\fonts\\calibri.ttf"))
+	{
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке шрифта" << std::endl;
+		exit(1);
+	};
 }
 
 void DebugConsole::addRow(std::string row)

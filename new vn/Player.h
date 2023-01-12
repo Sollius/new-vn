@@ -7,7 +7,7 @@ class Player
 private:
 	std::vector<std::tuple<std::string, int>>	m_flags =			std::vector<std::tuple<std::string, int>>();
 	std::vector<std::tuple<std::string, int>>	m_playerSettings =	std::vector<std::tuple<std::string, int>>();
-	std::string m_saveFileName = "save.me";
+	std::string m_saveFileName = "saves\\save.me";
 
 	std::string m_playerName = "user1";
 
