@@ -408,6 +408,7 @@ Player Scene::display(RenderWindow& window, Clock clock)
 					}
 
 					m_texts.push_back(actionExecutor.getText());
+					m_texts.push_back(actionExecutor.getHeader());
 					break;
 				}
 				case ActionType::OPTION:

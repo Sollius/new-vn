@@ -39,6 +39,8 @@ public:
 
 	virtual Sprite getSprite();
 
+	virtual sf::Text getHeader();
+
 	virtual Text getText();
 
 	virtual sf::Sound& getSound();

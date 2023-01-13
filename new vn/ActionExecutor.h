@@ -20,6 +20,8 @@ public:
 
 	virtual Text getText();
 
+	virtual sf::Text getHeader();
+
 	virtual sf::Sound& getSound();
 
 	virtual sf::SoundBuffer& getSoundBuffer();

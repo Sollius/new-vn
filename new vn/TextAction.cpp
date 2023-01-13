@@ -5,11 +5,27 @@ TextAction::TextAction() {}
 
 TextAction::~TextAction() {}
 
-TextAction::TextAction(int orderNumber, ActionType actionType, float actionDuration, TextActionType textActionType, sf::Text text, Vector2f uiPosition) : BaseAction(orderNumber, actionType, actionDuration)
+TextAction::TextAction(int orderNumber, ActionType actionType, float actionDuration, TextActionType textActionType, sf::String header, sf::String text, Vector2f uiPosition) : BaseAction(orderNumber, actionType, actionDuration)
 {
+	if (!m_font.loadFromFile("resources\\fonts\\calibri.ttf"))
+	{
+		throw __uncaught_exception;
+		std::cout << "Ошибка при загрузке шрифта" << std::endl;
+		exit(1);
+	}
+
 	m_textActionType = textActionType;
-	m_text = text;
-	m_text.setPosition(Vector2f(uiPosition.x + 20, uiPosition.y + 20));
+
+	m_header = sf::Text(header, m_font, 30);
+	m_header.setStyle(sf::Text::Style::Bold);
+	m_header.setOutlineColor(sf::Color::Black);
+	m_header.setOutlineThickness(2.f);
+	m_header.setPosition(uiPosition.x + 20, uiPosition.y);
+
+	m_text = sf::Text(text, m_font, 20);
+	m_text.setOutlineThickness(0.5f);
+	m_text.setOutlineColor(sf::Color(100, 100, 100, 255));
+	m_text.setPosition(Vector2f(uiPosition.x + 20, uiPosition.y + 50));
 }
 
 void TextAction::execute(sf::Clock clock, sf::Time time)
@@ -46,6 +62,11 @@ void TextAction::execute(sf::Clock clock, sf::Time time)
 sf::Text TextAction::getText()
 {
 	return m_text;
+}
+
+sf::Text TextAction::getHeader()
+{
+	return m_header;
 }
 
 TextActionType TextAction::getTextActionType()

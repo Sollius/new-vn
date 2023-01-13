@@ -95,6 +95,13 @@ Sprite BaseAction::getSprite()
 	exit(1);
 }
 
+sf::Text BaseAction::getHeader()
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате заголовка текста\nОшибка наследования виртуальной функции (BaseAction)" << std::endl;
+	exit(1);
+}
+
 Text BaseAction::getText()
 {
 	throw __uncaught_exception;

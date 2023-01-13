@@ -94,7 +94,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 	{
 		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::AWAIT, charSprite, 0.f, charPosition, charPosition)),
-		std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::MOVING_IN, sf::Text(sf::String(L"Ты кто такой, сука?"), defaultFont, 20), scene.getUserInterface().getPosition())),
+		std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::MOVING_IN, sf::String(L"Зверь"), sf::String(L"Ты кто такой, сука?"), scene.getUserInterface().getPosition())),
 	});
 	player = scene.display(window, clock);
 
@@ -103,7 +103,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 		scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 		{
 			std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::AWAIT, charSprite, 5.f, charPosition, charPosition)),
-			std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::AWAIT, sf::Text(sf::String(L"Ты кто такой, сука?"), defaultFont, 20), scene.getUserInterface().getPosition())),
+			std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::AWAIT, sf::String(L"Зверь"), sf::String(L"Ты кто такой, сука?"), scene.getUserInterface().getPosition())),
 			std::shared_ptr<BaseAction>(std::make_shared<SelectionAction>(2, ActionType::OPTION, 0.f, "Проверка на петуха", std::vector<sf::Text>({ sf::Text(sf::String(L"Дебил ебаный"), defaultFont, 20), sf::Text(sf::String(L"Козёл мерзкий"), defaultFont, 20), sf::Text(sf::String(L"Чорт вонючий"), defaultFont, 20) }), buttonZoneBounds)),
 		});
 		player = scene.display(window, clock);
@@ -130,7 +130,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 			scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 			{
 				std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::AWAIT, charSprite, 5.f, charPosition, charPosition)),
-				std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::AWAIT, sf::Text(sf::String(L"Ну раз ты ДЕБИЛ ЕБАНЫЙ, может ты очень занят?"), defaultFont, 20), scene.getUserInterface().getPosition())),
+				std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::AWAIT, sf::String(L"Зверь"), sf::String(L"Ну раз ты ДЕБИЛ ЕБАНЫЙ, может ты очень занят?"), scene.getUserInterface().getPosition())),
 			});
 
 			break;
@@ -140,7 +140,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 			scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 			{
 				std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::AWAIT, charSprite, 5.f, charPosition, charPosition)),
-				std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::AWAIT, sf::Text(sf::String(L"Ну раз ты КОЗЁЛ МЕРЗКИЙ, может ты очень занят?"), defaultFont, 20), scene.getUserInterface().getPosition())),
+				std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::AWAIT, sf::String(L"Зверь"), sf::String(L"Ну раз ты КОЗЁЛ МЕРЗКИЙ, может ты очень занят?"), scene.getUserInterface().getPosition())),
 			});
 
 			break;
@@ -150,7 +150,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 			scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 			{
 				std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::AWAIT, charSprite, 5.f, charPosition, charPosition)),
-				std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::AWAIT, sf::Text(sf::String(L"Ну раз ты ЧОРТ ВОНЮЧИЙ, может ты очень занят?"), defaultFont, 20), scene.getUserInterface().getPosition())),
+				std::shared_ptr<BaseAction>(std::make_shared<TextAction>(0, ActionType::TEXT, 0, TextActionType::AWAIT, sf::String(L"Зверь"), sf::String(L"Ну раз ты ЧОРТ ВОНЮЧИЙ, может ты очень занят?"), scene.getUserInterface().getPosition())),
 			});
 
 			break;
@@ -168,7 +168,7 @@ int Game(sf::RenderWindow& window, DebugConsole debugConsole, bool debug, Clock 
 
 	scene.setActions(std::vector<std::shared_ptr<BaseAction>>
 	{
-		std::shared_ptr<BaseAction>(std::make_shared<TextAction>(1, ActionType::TEXT, 0, TextActionType::MOVING_OUT, sf::Text(sf::String(L"Ты кто такой, сука?"), defaultFont, 20), scene.getUserInterface().getPosition())),
+		std::shared_ptr<BaseAction>(std::make_shared<TextAction>(1, ActionType::TEXT, 0, TextActionType::MOVING_OUT, sf::String(L"Зверь"), sf::String(L"Ты кто такой, сука?"), scene.getUserInterface().getPosition())),
 		std::shared_ptr<BaseAction>(std::make_shared<CharacterAction>(1, ActionType::CHARACTER, CharActionType::AWAIT, charSprite, 5.f, charPosition, charPosition)),
 		std::shared_ptr<BaseAction>(std::make_shared<BackgroundAction>(2, ActionType::BACKGROUND, BgActionType::MOVING_THROUGH, scene.getBackground(), 3, Vector2f(0.f, 0.f), Vector2f(200.f, 0.f))),
 	});

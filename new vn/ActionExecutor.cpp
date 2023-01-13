@@ -31,6 +31,13 @@ Text ActionExecutor::getText()
 	exit(1);
 }
 
+sf::Text ActionExecutor::getHeader()
+{
+	throw __uncaught_exception;
+	std::cout << "Ошибка при возврате заголовка текста\nОшибка наследования виртуальной функции (ActionExecutor)" << std::endl;
+	exit(1);
+}
+
 sf::Sound& ActionExecutor::getSound()
 {
 	throw __uncaught_exception;
